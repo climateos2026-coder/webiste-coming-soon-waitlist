@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+/* Cabinet Grotesk via Fontshare */
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/fonts/CabinetGrotesk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/fonts/CabinetGrotesk-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/fonts/CabinetGrotesk-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/fonts/CabinetGrotesk-Extrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-display: 'Cabinet Grotesk', 'Instrument Sans', sans-serif;
+  --font-body: 'Instrument Sans', 'DM Sans', sans-serif;
+  --font-stat: 'Barlow Condensed', 'Instrument Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --tw-shadow-glow: 0 0 40px rgba(11, 110, 90, 0.4);
+  --tw-shadow-amber: 0 0 40px rgba(224, 123, 57, 0.3);
+  --color-error: #F87171;
+  --color-success: #34D399;
+  --color-warning: #FBBF24;
+  --color-error-bg: #7A1F1F;
+  --color-success-bg: #0F4A29;
+  --color-warning-bg: #7A4A0F;
+}
+
+/* Dark theme (default) */
+[data-theme="dark"] {
+  --bg-primary: var(--color-neutral-800);
+  --bg-secondary: var(--color-neutral-700);
+  --bg-tertiary: var(--color-neutral-600);
+  --bg-elevated: var(--color-neutral-700);
+  --text-primary: var(--color-neutral-0);
+  --text-secondary: var(--color-neutral-100);
+  --text-muted: var(--color-neutral-200);
+  --text-disabled: var(--color-neutral-300);
+  --border-default: var(--color-neutral-500);
+  --border-subtle: var(--color-neutral-600);
+  --border-strong: var(--color-neutral-400);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg-primary: var(--color-neutral-0);
+  --bg-secondary: var(--color-neutral-25);
+  --bg-tertiary: var(--color-teal-50);
+  --bg-elevated: #FFFFFF;
+  --text-primary: var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-700);
+  --text-muted: var(--color-neutral-400);
+  --text-disabled: var(--color-neutral-300);
+  --border-default: var(--color-neutral-25);
+  --border-subtle: var(--color-neutral-25);
+  --border-strong: var(--color-neutral-200);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+.earth-sphere {
+  animation: earth-float 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+  box-shadow: 0 28px 90px rgba(45, 212, 191, 0.2);
+  overflow: hidden;
+}
+
+.earth-atmosphere {
+  background: radial-gradient(circle at 30% 26%, rgba(125, 211, 252, 0.75), rgba(14, 34, 84, 0.9) 58%, rgba(2, 7, 20, 1) 84%);
+}
+
+.orbit-ring {
+  animation: orbit-spin 14s linear infinite;
+}
+
+.earth-texture {
+  background:
+    radial-gradient(circle at 72% 40%, rgba(34, 197, 94, 0.88) 0 13%, transparent 14%),
+    radial-gradient(circle at 59% 68%, rgba(34, 197, 94, 0.85) 0 11%, transparent 12%),
+    radial-gradient(circle at 28% 55%, rgba(34, 197, 94, 0.82) 0 14%, transparent 15%),
+    radial-gradient(circle at 16% 30%, rgba(34, 197, 94, 0.75) 0 10%, transparent 11%),
+    linear-gradient(90deg, rgba(22, 101, 163, 0.6), rgba(14, 116, 144, 0.82), rgba(37, 99, 235, 0.65));
+  filter: saturate(1.2);
+  animation: earth-rotate 20s linear infinite;
+}
+
+.earth-clouds {
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.2) 0 10%, transparent 11%),
+    radial-gradient(circle at 62% 32%, rgba(255, 255, 255, 0.18) 0 9%, transparent 10%),
+    radial-gradient(circle at 76% 70%, rgba(255, 255, 255, 0.15) 0 11%, transparent 12%);
+  animation: earth-rotate 28s linear infinite reverse;
+}
+
+.earth-shadow {
+  background: radial-gradient(circle at 20% 24%, transparent 0 30%, rgba(0, 0, 0, 0.52) 68%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+@keyframes earth-float {
+  0%,
+  100% {
+    transform: rotateX(8deg) rotateY(-8deg) translateY(0px);
+  }
+  50% {
+    transform: rotateX(2deg) rotateY(8deg) translateY(-10px);
+  }
+}
+
+@keyframes earth-rotate {
+  from {
+    transform: translateX(0) rotate(0deg) scale(1.02);
+  }
+  to {
+    transform: translateX(-18%) rotate(2deg) scale(1.04);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes aurora {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ticker {
+    animation: none;
+    overflow: auto;
+  }
+  .earth-sphere,
+  .earth-texture,
+  .earth-clouds,
+  .orbit-ring {
+    animation: none;
+  }
+}

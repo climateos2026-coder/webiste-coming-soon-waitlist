@@ -1,0 +1,36 @@
+---
+slug: waterwatch
+name: WaterWatch
+emoji: 💧
+accentColor: '#5BA7F0'
+problemDomain: Groundwater Monitoring & Conservation
+prizeUSD: 3000
+datasetCount: 5
+mentorCount: 4
+---
+
+## Why WaterWatch Matters
+
+70% of groundwater monitoring wells are still recorded manually, on paper. By the time data is digitised, the aquifer continues declining. WaterWatch builds the intelligence layer this data deserves.
+
+## The Challenge
+
+Build a pipeline that ingests GRACE satellite data and well records, generates monthly depletion risk scores, and presents findings for journalists, NGOs, and water board officers.
+
+## What Success Looks Like
+
+- Depletion scores updated monthly with uncertainty bands
+- Downloadable reports for public hearings
+- Alerts via webhook/email
+- Works in low-bandwidth environments
+
+## Datasets Provided
+
+| Dataset | Source | Format | Notes |
+|---------|--------|--------|-------|
+| GRACE groundwater | NASA Earthdata | NetCDF | 2002–2025 |
+| Well records | CGWB | CSV | India quarterly |
+| Global groundwater | IGRAC | API | International |
+| Irrigation data | AQUASTAT | CSV | Annual |
+| Soil moisture | NASA SMAP | GeoTIFF | Global |
+| Rainfall | IMD | API | Indian monsoon |
