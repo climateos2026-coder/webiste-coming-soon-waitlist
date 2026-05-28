@@ -17,16 +17,25 @@ const TRACK_OPTIONS = [
 ];
 
 const schema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(80),
-  email: z.string().email('Invalid email address'),
-  country: z.string().optional(),
-  role: z.string().optional(),
-  trackInterest: z.string().optional(),
+  name: z.string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(80, 'Name must be at most 80 characters')
+    .refine(val => !/[\r\n]/.test(val), 'Name cannot contain line breaks'),
+  email: z.string().email('Invalid email address').max(100, 'Email must be at most 100 characters'),
+  country: z.string().max(100, 'Country must be at most 100 characters').optional(),
+  role: z.string().max(100, 'Role must be at most 100 characters').optional(),
+  trackInterest: z.string().max(50).optional(),
   climateProblem: z.string().max(240, 'Max 240 characters').optional(),
-  referralSource: z.string().optional(),
+  referralSource: z.string().max(200, 'Referral source must be at most 200 characters').optional(),
 });
 
 type FormData = z.infer<typeof schema>;
+
+const getCookie = (name: string): string | null => {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+};
 
 export function WaitlistForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -48,9 +57,13 @@ export function WaitlistForm() {
     };
 
     try {
+      const csrfToken = getCookie('csrf_token');
       const res = await fetch('/api/waitlist', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken || '',
+        },
         body: JSON.stringify(payload),
       });
 

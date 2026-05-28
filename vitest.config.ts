@@ -4,6 +4,11 @@ import { resolve } from 'node:path';
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './'),
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,

@@ -21,20 +21,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Inline script that runs before hydration to prevent theme flash
-const themeScript = `
-(function() {
-  try {
-    var t = localStorage.getItem('theme');
-    if (t === 'light' || t === 'dark') {
-      document.documentElement.setAttribute('data-theme', t);
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  } catch(e) {}
-})();
-`;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,7 +30,7 @@ export default function RootLayout({
     <html lang="en" className="h-full" data-theme="dark">
       <head>
         {/* Runs synchronously before paint — prevents theme flash */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script src="/theme-init.js" />
       </head>
       <body className="min-h-full flex flex-col antialiased" style={{ fontFamily: 'var(--font-body)' }}>
         <PlausibleAnalytics />

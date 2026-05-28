@@ -24,3 +24,12 @@ export function formatTime(date: Date, timezone: string): string {
 export function formatUTC(date: Date): string {
   return formatInTimeZone(date, 'UTC', 'HH:mm');
 }
+
+export function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
