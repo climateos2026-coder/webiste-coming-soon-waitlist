@@ -1,3 +1,8 @@
+'use client';
+
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 
@@ -93,56 +98,117 @@ const FAQ_SECTIONS = [
   },
 ];
 
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="rounded-xl border border-site-border bg-site-card-elevated overflow-hidden transition-all duration-300 hover:border-cyan-500/20 hover:shadow-md hover:shadow-cyan-500/5">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full text-left p-4 cursor-pointer focus:outline-none transition-colors text-site-text hover:text-cyan-600 dark:hover:text-cyan-200 select-none flex items-center justify-between gap-4 font-semibold text-base"
+      >
+        <span>{question}</span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2, ease: 'easeInOut' }}
+          className="flex-shrink-0 text-cyan-600 dark:text-cyan-400"
+        >
+          <ChevronDown size={18} />
+        </motion.div>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="px-4 pb-4 text-sm leading-relaxed text-site-muted border-t border-site-border/30 pt-3 transition-colors bg-site-card/30">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function FAQPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#04110f] pt-16">
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_15%,rgba(52,211,153,0.18),transparent_30%),radial-gradient(circle_at_75%_8%,rgba(34,211,238,0.14),transparent_28%)]" />
+      <main className="min-h-screen bg-site-bg pt-16 transition-colors duration-300">
+        <section className="relative overflow-hidden bg-transparent">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_15%,var(--glow-3),transparent_30%),radial-gradient(circle_at_75%_8%,var(--glow-1),transparent_28%)] transition-colors duration-300" />
+          
           <div className="relative mx-auto max-w-6xl px-4 py-20">
-            <div className="rounded-3xl border border-emerald-100/20 bg-[#071613]/80 p-8 backdrop-blur md:p-12">
-              <p className="text-xs uppercase tracking-[0.22em] text-emerald-100/70">Frequently Asked Questions</p>
-              <h1 className="mt-3 font-display text-4xl font-bold text-emerald-50 md:text-5xl">ClimateOS 2026 FAQ</h1>
-              <p className="mt-4 max-w-4xl text-emerald-50/80">
+            {/* Header section card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="rounded-3xl border border-site-border bg-site-card p-8 backdrop-blur md:p-12 shadow-sm transition-all duration-300"
+            >
+              <div className="flex items-center gap-2">
+                <HelpCircle className="text-cyan-500 h-5 w-5 animate-pulse" />
+                <p className="text-xs uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-200 transition-colors duration-300 font-semibold">
+                  Frequently Asked Questions
+                </p>
+              </div>
+              <h1 className="mt-3 font-display text-4xl font-extrabold text-site-text md:text-5xl tracking-tight transition-colors duration-300">
+                ClimateOS 2026 FAQ
+              </h1>
+              <p className="mt-4 max-w-4xl text-site-muted transition-colors duration-300 leading-relaxed text-base md:text-lg">
                 ClimateOS 2026 is a 48-hour, fully online climate-tech hackathon for builders, designers, researchers,
                 and problem-solvers around the world.
               </p>
-              <div className="mt-8 rounded-2xl border border-emerald-100/15 bg-emerald-300/10 p-5">
-                <h2 className="font-display text-2xl font-bold text-emerald-100">Coming Soon</h2>
-                <p className="mt-2 text-emerald-50/75">
+              <div className="mt-8 rounded-2xl border border-site-border bg-site-card-elevated p-6 shadow-sm transition-colors relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors duration-300" />
+                <h2 className="font-display text-2xl font-bold text-cyan-600 dark:text-cyan-200">Coming Soon</h2>
+                <p className="mt-2 text-site-muted">
                   We are building the full event experience now. Applications, track details, mentor announcements,
                   and the participant handbook will be released soon.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="mt-8 space-y-6">
-              {FAQ_SECTIONS.map((section) => (
-                <section key={section.title} className="rounded-3xl border border-emerald-100/20 bg-[#061512]/75 p-6 md:p-8">
-                  <h2 className="font-display text-2xl font-bold text-emerald-100">{section.title}</h2>
-                  <div className="mt-4 space-y-3">
+            {/* Accordion List by Section */}
+            <div className="mt-8 space-y-8">
+              {FAQ_SECTIONS.map((section, sectionIdx) => (
+                <motion.section
+                  key={section.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.5, delay: sectionIdx * 0.05 }}
+                  className="rounded-3xl border border-site-border bg-site-card p-6 md:p-8 shadow-sm transition-colors"
+                >
+                  <h2 className="font-display text-2xl font-bold text-site-text tracking-tight border-b border-site-border/30 pb-3">
+                    {section.title}
+                  </h2>
+                  <div className="mt-6 space-y-4">
                     {section.items.map(([question, answer]) => (
-                      <details key={question} className="rounded-xl border border-emerald-100/15 bg-[#071a16] p-4 open:bg-[#0a231d]">
-                        <summary className="cursor-pointer list-none text-base font-semibold text-emerald-50">
-                          {question}
-                        </summary>
-                        <p className="mt-3 text-sm leading-relaxed text-emerald-50/75">{answer}</p>
-                      </details>
+                      <FAQItem key={question} question={question} answer={answer} />
                     ))}
                   </div>
-                </section>
+                </motion.section>
               ))}
             </div>
 
-            <div className="mt-8 rounded-3xl border border-cyan-100/20 bg-[#031019]/80 p-6 md:p-8">
-              <h2 className="font-display text-2xl font-bold text-cyan-100">Final Note</h2>
-              <p className="mt-3 text-cyan-50/80">
+            {/* Footer note card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-8 rounded-3xl border border-site-border bg-site-card-elevated p-6 md:p-8 shadow-sm transition-colors duration-300"
+            >
+              <h2 className="font-display text-2xl font-bold text-cyan-600 dark:text-cyan-200">Final Note</h2>
+              <p className="mt-3 text-site-muted leading-relaxed">
                 ClimateOS 2026 is being built for people who want to make climate work real, useful, and deployable.
                 If you care about solving urgent problems with code, data, design, or systems thinking, this is for you.
               </p>
-              <p className="mt-2 text-cyan-50/70">More details are coming soon.</p>
-            </div>
+              <p className="mt-2 text-xs text-site-muted-dark font-medium">More details are coming soon.</p>
+            </motion.div>
           </div>
         </section>
       </main>

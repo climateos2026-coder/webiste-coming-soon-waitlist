@@ -6,7 +6,7 @@ export default function TimelinePage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#050712] pt-16">
+      <main className="min-h-screen bg-site-bg pt-16 transition-colors duration-300">
         <DetailComingSoon
           badge="Event timeline coming soon"
           title="ClimateOS event timeline is on the way"
