@@ -139,7 +139,7 @@ export function ClimateComingSoon() {
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
-              ['Tracks', 'Deep problem statements with practical solution spaces.'],
+              ['Tracks', 'Kept entirely under wraps—the challenge is a mystery.'],
               ['Recruitment', 'Core team and volunteer opportunities are open.'],
               ['Sponsorship', 'Structured partner packages for meaningful activation.'],
             ].map(([title, description]) => (

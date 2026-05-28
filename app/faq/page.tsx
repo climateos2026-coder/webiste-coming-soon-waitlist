@@ -14,8 +14,7 @@ const FAQ_SECTIONS = [
       ['Who can participate?', 'ClimateOS is open to all. We welcome students, early-career builders, professionals, researchers, designers, and interdisciplinary teams from anywhere in the world.'],
       ['Is this hackathon fully online?', 'Yes. ClimateOS is built natively for online participation, with async-first collaboration and optional live moments for announcements, mentor interactions, and finals.'],
       ['How long is the event?', 'The main build sprint runs for 48 hours. Pre-hack preparation, async judging, and the finals happen around it as part of the wider event flow.'],
-      ['When will ClimateOS 2026 take place?', 'The sprint is scheduled for October 10-12, 2026, and the finals are scheduled for October 17, 2026.'],
-      ['What does "coming soon" mean right now?', 'It means the event website is still being prepared. We are finalising the full public launch content, including applications, FAQs, track explainers, and the waitlist.'],
+      ['What does "coming soon" mean right now?', 'It means the event website is still being prepared. We are finalising the full public launch content, including applications, FAQs, and track explainers.'],
     ],
   },
   {
@@ -42,7 +41,6 @@ const FAQ_SECTIONS = [
     items: [
       ['When will applications open?', 'Applications will open closer to launch. The website will announce the exact date.'],
       ['How will registration work?', 'Registration will be handled through the event platform, with a short application form and follow-up email confirmation.'],
-      ['Will there be a waitlist?', 'Yes. A waitlist will open before applications launch so interested builders can get early updates.'],
       ['Will everyone who applies be accepted?', 'Not necessarily. The organising team may review applications to maintain quality, balance teams, and manage the participant experience.'],
     ],
   },
@@ -90,10 +88,9 @@ const FAQ_SECTIONS = [
     ],
   },
   {
-    title: 'Contact and Updates',
+    title: 'Contact and Questions',
     items: [
-      ['How do I stay updated?', 'Join the waitlist and follow official event updates on the website as launch content is released.'],
-      ['Where can I ask questions?', 'A live help desk and community channels will be available once the event page goes public.'],
+      ['How can I ask questions?', 'You can reach us directly via email at climateos26@gmail.com. We will get back to you as soon as possible.'],
     ],
   },
 ];
