@@ -25,7 +25,7 @@ if (typeof setInterval !== 'undefined') {
  */
 export function getClientIp(req: NextRequest): string {
   // Use Next.js connection IP which is populated securely from trusted proxy headers (e.g. Vercel)
-  const connectionIp = req.ip;
+  const connectionIp = (req as any).ip;
   if (connectionIp) return connectionIp;
 
   // Fallback to headers if not in a serverless platform with direct IP detection
@@ -53,7 +53,7 @@ export async function rateLimit(
   const ip = getClientIp(req);
   const userAgent = req.headers.get('user-agent') || 'unknown';
   
-  const fingerprint = `${ip}:${userAgent}`;
+  const fingerprint = ip;
   const minuteKey = `min:${fingerprint}`;
   const hourKey = `hr:${fingerprint}`;
 

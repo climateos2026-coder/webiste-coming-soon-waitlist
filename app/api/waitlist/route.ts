@@ -3,6 +3,8 @@ import { createServerClient } from '@/lib/supabase/server';
 import { z } from 'zod';
 import { escapeHtml } from '@/lib/utils';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import DOMPurify from 'isomorphic-dompurify';
+import isDisposableEmail from 'is-disposable-email';
 
 interface SecurityLogEvent {
   event: string;
@@ -28,7 +30,8 @@ const waitlistSchema = z.object({
     .min(2, 'Name must be at least 2 characters')
     .max(80, 'Name must be at most 80 characters')
     .refine(val => !/[\r\n]/.test(val), 'Name cannot contain line breaks'),
-  email: z.string().email('Invalid email address').max(100, 'Email must be at most 100 characters'),
+  email: z.string().email('Invalid email address').max(100, 'Email must be at most 100 characters')
+    .refine((email) => !isDisposableEmail(email), 'Disposable emails not allowed'),
   country: z.string().max(100, 'Country must be at most 100 characters').optional(),
   role: z.string().max(100, 'Role must be at most 100 characters').optional(),
   trackInterests: z.array(z.string().max(50)).max(10).optional(),
@@ -83,7 +86,7 @@ async function sendWelcomeEmail(email: string, name: string, ip: string, userAge
       event: 'EMAIL_SEND_FAILED',
       ip,
       userAgent,
-      metadata: { status: response.status, message: errorText.substring(0, 100) },
+      metadata: { status: response.status },
     });
   }
 }
@@ -180,31 +183,36 @@ export async function POST(req: NextRequest) {
 
     // Perform direct insertion to obey insert-only RLS policies.
     const { error } = await supabase.from('waitlist').insert({
-      name: parsed.data.name,
+      name: DOMPurify.sanitize(parsed.data.name, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }),
       email: parsed.data.email,
-      country: parsed.data.country,
-      role: parsed.data.role,
+      country: parsed.data.country ? DOMPurify.sanitize(parsed.data.country, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }) : undefined,
+      role: parsed.data.role ? DOMPurify.sanitize(parsed.data.role, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }) : undefined,
       track_interests: parsed.data.trackInterests ?? [],
-      climate_problem: parsed.data.climateProblem,
-      referral_source: parsed.data.referralSource,
+      climate_problem: parsed.data.climateProblem ? DOMPurify.sanitize(parsed.data.climateProblem, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }) : undefined,
+      referral_source: parsed.data.referralSource ? DOMPurify.sanitize(parsed.data.referralSource, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }) : undefined,
     });
 
     if (error) {
       // 23505 is PostgreSQL unique_violation code
-      if (error.code === '23505' || error.message.includes('unique') || error.message.includes('already exists')) {
-        return NextResponse.json(
-          { error: "You're already on the list!" },
-          { status: 409 }
-        );
+      if (error.code === '23505' || error.message?.includes('unique') || error.message?.includes('already exists')) {
+        logSecurityEvent({
+          event: 'DUPLICATE_SUBMISSION_ATTEMPT',
+          ip,
+          userAgent,
+        });
+        return NextResponse.json({ success: true });
       }
       
       logSecurityEvent({
         event: 'DATABASE_ERROR',
         ip,
         userAgent,
-        metadata: { code: error.code, message: error.message },
+        metadata: { code: error.code },
       });
-      throw error;
+      return NextResponse.json(
+        { error: 'Form submission error' },
+        { status: 400 }
+      );
     }
 
     await sendWelcomeEmail(parsed.data.email, parsed.data.name, ip, userAgent).catch((err) => {

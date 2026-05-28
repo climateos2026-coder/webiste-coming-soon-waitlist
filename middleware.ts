@@ -11,11 +11,11 @@ export function middleware(request: NextRequest) {
   
   if (!csrfToken) {
     // Generate a secure random token
-    csrfToken = crypto.randomUUID();
+    csrfToken = crypto.getRandomValues(new Uint8Array(32)).reduce((acc, val) => acc + val.toString(16).padStart(2, '0'), '');
     // Set the cookie (non-httpOnly so client-side JS can read it and send it in the header)
     response.cookies.set('csrf_token', csrfToken, {
       path: '/',
-      sameSite: 'lax',
+      sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60 * 24, // 1 day
     });

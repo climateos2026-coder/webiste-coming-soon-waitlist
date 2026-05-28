@@ -104,6 +104,7 @@ export function WaitlistSection() {
             {/* Embedded Google Form Iframe */}
             <iframe
               src={formUrl}
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
               width="100%"
               height="800"
               className="relative z-10 w-full border-0 block"
