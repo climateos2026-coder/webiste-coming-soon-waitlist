@@ -26,3 +26,6 @@ npm-debug.log*
 
 # Testing
 .vitest/
+
+# Scratch & Temporary files
+scratch/

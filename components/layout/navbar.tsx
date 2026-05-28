@@ -50,7 +50,7 @@ export function Navbar() {
           : 'border-transparent bg-transparent'}`}
     >
       <div className="max-w-7xl mx-auto h-full px-4 flex items-center justify-between">
-        <Link href="/" className="font-display font-bold text-lg text-cyan-600 dark:text-cyan-200 tracking-tight hover:opacity-85 transition-all">
+        <Link href="/" className="font-display font-bold text-lg text-primary tracking-tight hover:opacity-85 transition-all">
           ◈ ClimateOS 2026
         </Link>
 
@@ -59,7 +59,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-site-muted hover:text-cyan-600 dark:hover:text-cyan-200 transition-colors duration-150"
+              className="text-sm font-medium text-site-muted hover:text-primary transition-colors duration-150"
             >
               {link.label}
             </Link>
@@ -69,7 +69,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl text-site-text hover:bg-site-card-elevated hover:text-cyan-600 dark:hover:text-cyan-200 transition-colors"
+            className="p-2 rounded-xl text-site-text hover:bg-site-card-elevated hover:text-primary transition-colors"
             aria-label="Toggle theme"
           >
             {mounted && theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -78,8 +78,8 @@ export function Navbar() {
           <Link
             href="/tracks"
             className="hidden sm:inline-flex items-center h-10 px-5 rounded-xl 
-                       bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 
-                       text-slate-950 text-sm font-bold shadow-[0_4px_14px_rgba(6,182,212,0.15)]
+                       bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover 
+                       text-white text-sm font-bold shadow-[0_4px_14px_rgba(11,110,90,0.15)]
                        transition-all hover:-translate-y-0.5 active:translate-y-0"
           >
             Explore Tracks →
@@ -101,7 +101,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="font-display font-bold text-3xl text-site-text hover:text-cyan-600 dark:hover:text-cyan-200 transition-colors"
+              className="font-display font-bold text-3xl text-site-text hover:text-primary transition-colors"
               onClick={() => setOpen(false)}
             >
               {link.label}
@@ -110,7 +110,7 @@ export function Navbar() {
           <Link
             href="/tracks"
             className="mt-4 inline-flex items-center justify-center h-14 px-8 
-                       rounded-xl bg-gradient-to-r from-cyan-400 to-indigo-500 text-slate-950 font-bold text-lg shadow-md"
+                       rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white font-bold text-lg shadow-md"
             onClick={() => setOpen(false)}
           >
             Explore Tracks →

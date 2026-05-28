@@ -46,7 +46,7 @@ export function ClimateComingSoon() {
             <motion.span
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex rounded-full border border-site-border-strong bg-site-card-elevated px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-200 transition-colors duration-300 shadow-sm"
+              className="inline-flex rounded-full border border-site-border-strong bg-site-card-elevated px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary transition-colors duration-300 shadow-sm"
             >
               ClimateOS 2026
             </motion.span>
@@ -58,7 +58,7 @@ export function ClimateComingSoon() {
               className="font-display text-5xl font-extrabold leading-tight md:text-7xl tracking-tight"
             >
               Build for the
-              <span className="block bg-gradient-to-r from-teal-600 via-indigo-600 to-violet-600 dark:from-cyan-300 dark:via-indigo-200 dark:to-violet-300 bg-clip-text text-transparent transition-all duration-300">
+              <span className="block bg-gradient-to-r from-primary via-primary-hover to-accent bg-clip-text text-transparent transition-all duration-300">
                 climate frontier
               </span>
             </motion.h1>
@@ -70,9 +70,9 @@ export function ClimateComingSoon() {
               className="max-w-xl text-lg text-site-muted transition-colors duration-300"
             >
               Build with global teams for{' '}
-              <span className="font-semibold text-cyan-600 dark:text-cyan-200 transition-colors duration-300">
+              <span className="font-semibold text-primary transition-colors duration-300">
                 {typedText}
-                <span className="ml-0.5 inline-block h-5 w-[2px] animate-pulse bg-cyan-600 dark:bg-cyan-200 align-middle" />
+                <span className="ml-0.5 inline-block h-5 w-[2px] animate-pulse bg-primary align-middle" />
               </span>
               .
             </motion.p>
@@ -85,7 +85,7 @@ export function ClimateComingSoon() {
             >
               <Link
                 href="/tracks"
-                className="rounded-xl bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(6,182,212,0.25)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+                className="rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(11,110,90,0.25)] transition-all hover:-translate-y-0.5 active:translate-y-0"
               >
                 Explore Tracks
               </Link>
@@ -101,13 +101,13 @@ export function ClimateComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="relative overflow-hidden rounded-2xl border border-site-border bg-site-card p-5 text-center backdrop-blur-md max-w-sm shadow-[0_8px_32px_0_rgba(6,182,212,0.05)] transition-all duration-300"
+              className="relative overflow-hidden rounded-2xl border border-site-border bg-site-card p-5 text-center backdrop-blur-md max-w-sm shadow-[0_8px_32px_0_rgba(11,110,90,0.05)] transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-indigo-500/5" />
-              <div className="absolute -left-12 -top-12 h-24 w-24 rounded-full bg-cyan-500/5 blur-xl pointer-events-none" />
-              <div className="absolute -right-12 -bottom-12 h-24 w-24 rounded-full bg-indigo-500/5 blur-xl pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+              <div className="absolute -left-12 -top-12 h-24 w-24 rounded-full bg-primary/5 blur-xl pointer-events-none" />
+              <div className="absolute -right-12 -bottom-12 h-24 w-24 rounded-full bg-accent/5 blur-xl pointer-events-none" />
               
-              <p className="relative font-display text-sm font-semibold tracking-wider text-cyan-600 dark:text-cyan-200 uppercase transition-colors duration-300">
+              <p className="relative font-display text-sm font-semibold tracking-wider text-primary uppercase transition-colors duration-300">
                 Countdown coming soon
               </p>
             </motion.div>
@@ -132,7 +132,7 @@ export function ClimateComingSoon() {
           transition={{ type: 'spring', bounce: 0.15 }}
           className="rounded-3xl border border-site-border bg-site-card p-6 backdrop-blur md:p-10 transition-colors duration-300"
         >
-          <h2 className="font-display text-3xl font-bold text-cyan-600 dark:text-cyan-200 transition-colors duration-300">Global Climate Builder Network</h2>
+          <h2 className="font-display text-3xl font-bold text-primary transition-colors duration-300">Global Climate Builder Network</h2>
           <p className="mt-2 max-w-3xl text-site-muted transition-colors duration-300">
             ClimateOS connects builders, researchers, and climate operators to create software and systems
             that are deployable in real contexts. Explore tracks, join the recruitment flow, and partner as a sponsor.
@@ -145,9 +145,9 @@ export function ClimateComingSoon() {
             ].map(([title, description]) => (
               <article 
                 key={title} 
-                className="rounded-xl border border-site-border bg-site-card-elevated p-5 hover:border-cyan-500/20 hover:scale-[1.02] hover:shadow-md transition-all duration-300 cursor-pointer"
+                className="rounded-xl border border-site-border bg-site-card-elevated p-5 hover:border-primary/20 hover:scale-[1.02] hover:shadow-md transition-all duration-300 cursor-pointer"
               >
-                <h3 className="font-display text-xl font-bold text-cyan-600 dark:text-cyan-200 transition-colors duration-300">{title}</h3>
+                <h3 className="font-display text-xl font-bold text-primary transition-colors duration-300">{title}</h3>
                 <p className="mt-2 text-sm text-site-muted transition-colors duration-300">{description}</p>
               </article>
             ))}
@@ -161,12 +161,12 @@ export function ClimateComingSoon() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           className="fixed bottom-4 right-4 z-40 max-w-xs rounded-2xl border border-site-border bg-site-card p-4 backdrop-blur-xl shadow-xl transition-all duration-300"
         >
-          <p className="text-xs uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-200/70 transition-colors duration-300">Direct Contact</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-primary transition-colors duration-300">Direct Contact</p>
           <p className="mt-1 text-sm text-site-text transition-colors duration-300">Official email: climateos26@gmail.com</p>
           <button
             type="button"
             onClick={() => setShowPopup(false)}
-            className="mt-3 text-xs font-semibold text-cyan-600 dark:text-cyan-200 hover:opacity-85 transition-opacity"
+            className="mt-3 text-xs font-semibold text-primary hover:opacity-85 transition-opacity"
           >
             Dismiss
           </button>

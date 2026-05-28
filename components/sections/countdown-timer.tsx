@@ -56,8 +56,8 @@ export function CountdownTimer() {
   );
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 border border-teal-800 rounded-2xl bg-neutral-800 animate-pulse-glow">
-      <p className="text-neutral-100 text-sm font-medium tracking-wider uppercase">
+    <div className="flex flex-col items-center gap-4 p-6 border border-primary/20 rounded-2xl bg-site-card shadow-lg shadow-primary/5 animate-pulse-glow">
+      <p className="text-site-text text-sm font-semibold tracking-wider uppercase">
         {phase.label}
       </p>
       <div className="flex items-start gap-2" aria-live="polite" aria-atomic="true">
@@ -69,8 +69,8 @@ export function CountdownTimer() {
         <Colon />
         <Digit value={time.seconds} label="Sec" />
       </div>
-      <p className="text-neutral-300 text-xs">
-        ⏰ Your local time: <span className="text-teal-300 font-mono">{localTime}</span> (19:00 UTC)
+      <p className="text-site-muted text-xs">
+        ⏰ Your local time: <span className="text-primary font-semibold font-mono">{localTime}</span> (19:00 UTC)
       </p>
     </div>
   );
@@ -79,12 +79,12 @@ export function CountdownTimer() {
 function Digit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="bg-neutral-700 rounded-lg px-3 py-2 min-w-[60px] text-center border border-neutral-600 shadow-lg">
-        <span className="font-stat font-semibold text-4xl text-neutral-0 tabular-nums">
+      <div className="bg-site-card-elevated rounded-lg px-3 py-2 min-w-[60px] text-center border border-site-border shadow-lg">
+        <span className="font-stat font-semibold text-4xl text-site-text tabular-nums">
           {String(value).padStart(2, '0')}
         </span>
       </div>
-      <span className="font-body text-xs font-medium text-neutral-200 tracking-widest uppercase">
+      <span className="font-body text-xs font-medium text-site-muted tracking-widest uppercase">
         {label}
       </span>
     </div>
@@ -92,5 +92,5 @@ function Digit({ value, label }: { value: number; label: string }) {
 }
 
 function Colon() {
-  return <span className="font-stat font-bold text-4xl text-teal-500 pt-2">:</span>;
+  return <span className="font-stat font-bold text-4xl text-primary pt-2">:</span>;
 }

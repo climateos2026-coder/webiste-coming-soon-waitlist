@@ -10,6 +10,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        primary: {
+          DEFAULT: '#0B6E5A',
+          hover: '#095C4B',
+          soft: '#D9F0EA',
+        },
+        accent: {
+          DEFAULT: '#E07B39',
+          hover: '#C96A2F',
+          soft: '#FBE8DA',
+        },
         teal: {
           50: '#E8FAF5',
           100: '#BEF0E3',

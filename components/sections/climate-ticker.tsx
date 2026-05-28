@@ -18,17 +18,17 @@ export function ClimateTicker() {
   const allStats = [...STATS, ...STATS];
 
   return (
-    <div className="bg-teal-900/50 border-y border-teal-800 py-3 overflow-hidden" aria-live="polite" role="marquee">
+    <div className="bg-primary-soft/10 border-y border-site-border py-3 overflow-hidden" aria-live="polite" role="marquee">
       <div className="flex animate-ticker whitespace-nowrap">
         {allStats.map((stat, index) => (
           <a
             key={`${stat.id}-${index}`}
             href={stat.trackSlug ? `/tracks/${stat.trackSlug}` : '#'}
-            className="flex items-center gap-2 text-sm font-mono text-neutral-200 hover:text-teal-300 transition-colors mx-6"
+            className="flex items-center gap-2 text-sm font-mono text-site-muted hover:text-primary transition-colors mx-6"
           >
             <span className="text-lg">{stat.emoji}</span>
-            <span>{stat.text}: <span className="text-amber-400 font-semibold">{stat.value}</span></span>
-            <span className="text-neutral-500">·</span>
+            <span>{stat.text}: <span className="text-accent font-semibold">{stat.value}</span></span>
+            <span className="text-site-muted-dark/50">·</span>
           </a>
         ))}
       </div>

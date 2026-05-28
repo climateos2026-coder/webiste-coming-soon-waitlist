@@ -20,10 +20,10 @@ export default function RecruitmentPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', duration: 0.8, bounce: 0.1 }}
-              className="rounded-3xl border border-site-border bg-site-card p-8 backdrop-blur md:p-12 shadow-xl hover:shadow-cyan-500/5 transition-all duration-300 relative overflow-hidden group"
+              className="rounded-3xl border border-site-border bg-site-card p-8 backdrop-blur md:p-12 shadow-xl hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden group"
             >
               {/* Decorative radial overlay */}
-              <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-cyan-500/5 blur-3xl transition-opacity group-hover:opacity-100" />
+              <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-primary/5 blur-3xl transition-opacity group-hover:opacity-100" />
 
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
@@ -31,9 +31,9 @@ export default function RecruitmentPage() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.15 }}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-site-border-strong bg-site-card-elevated px-4 py-1.5 text-xs uppercase tracking-[0.2em] font-bold text-cyan-600 dark:text-cyan-200 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-site-border-strong bg-site-card-elevated px-4 py-1.5 text-xs uppercase tracking-[0.2em] font-bold text-primary transition-colors"
                   >
-                    <Sparkles className="h-3.5 w-3.5 text-cyan-500 animate-spin" style={{ animationDuration: '6s' }} />
+                    <Sparkles className="h-3.5 w-3.5 text-primary animate-spin" style={{ animationDuration: '6s' }} />
                     Recruitment now open
                   </motion.span>
                   <motion.h1
@@ -65,21 +65,21 @@ export default function RecruitmentPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ type: 'spring', delay: 0.4 }}
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-2xl border border-site-border bg-site-card-elevated p-6 md:p-8 hover:border-cyan-500/25 transition-all duration-300 shadow-sm block group relative overflow-hidden"
+                  className="rounded-2xl border border-site-border bg-site-card-elevated p-6 md:p-8 hover:border-primary/25 transition-all duration-300 shadow-sm block group relative overflow-hidden"
                 >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors duration-300" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-300" />
                   
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 group-hover:bg-cyan-500/20 transition-all duration-300">
+                    <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-all duration-300">
                       <ClipboardList className="h-6 w-6" />
                     </div>
-                    <span className="text-xs uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-200/70 group-hover:text-cyan-500 font-bold transition-colors">
+                    <span className="text-xs uppercase tracking-[0.2em] text-primary group-hover:text-primary-hover font-bold transition-colors">
                       Core Team
                     </span>
                   </div>
 
                   <h2 className="font-display text-2xl font-bold text-site-text group-hover:translate-x-1 transition-transform duration-300 flex items-center gap-2">
-                    Join the core team <ArrowRight className="h-5 w-5 text-cyan-500 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                    Join the core team <ArrowRight className="h-5 w-5 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300" />
                   </h2>
                   <p className="mt-3 text-sm text-site-muted leading-relaxed group-hover:text-site-text transition-colors duration-300">
                     Operations, execution, product, design, and event leadership roles. Take charge of key verticals.
@@ -94,21 +94,21 @@ export default function RecruitmentPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ type: 'spring', delay: 0.45 }}
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-2xl border border-site-border bg-site-card-elevated p-6 md:p-8 hover:border-indigo-500/25 transition-all duration-300 shadow-sm block group relative overflow-hidden"
+                  className="rounded-2xl border border-site-border bg-site-card-elevated p-6 md:p-8 hover:border-accent/25 transition-all duration-300 shadow-sm block group relative overflow-hidden"
                 >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-colors duration-300" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full blur-2xl group-hover:bg-accent/10 transition-colors duration-300" />
 
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-500/20 transition-all duration-300">
+                    <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent/20 transition-all duration-300">
                       <Users className="h-6 w-6" />
                     </div>
-                    <span className="text-xs uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-200/70 group-hover:text-indigo-500 font-bold transition-colors">
+                    <span className="text-xs uppercase tracking-[0.2em] text-accent group-hover:text-accent-hover font-bold transition-colors">
                       Volunteering
                     </span>
                   </div>
 
                   <h2 className="font-display text-2xl font-bold text-site-text group-hover:translate-x-1 transition-transform duration-300 flex items-center gap-2">
-                    Become a volunteer <ArrowRight className="h-5 w-5 text-indigo-500 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                    Become a volunteer <ArrowRight className="h-5 w-5 text-accent opacity-0 group-hover:opacity-100 transition-all duration-300" />
                   </h2>
                   <p className="mt-3 text-sm text-site-muted leading-relaxed group-hover:text-site-text transition-colors duration-300">
                     Help with Discord moderation, support desk, participant onboarding, and final evaluation logistics.
@@ -124,7 +124,7 @@ export default function RecruitmentPage() {
               >
                 <Link
                   href="/tracks"
-                  className="rounded-xl bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center gap-2 hover:shadow-cyan-500/10"
+                  className="rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center gap-2 hover:shadow-primary/10"
                 >
                   Explore track domains <ArrowRight className="h-4 w-4" />
                 </Link>

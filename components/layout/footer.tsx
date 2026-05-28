@@ -17,7 +17,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
-            <Link href="/" className="font-display font-bold text-xl text-cyan-600 dark:text-cyan-200 tracking-tight hover:opacity-85 transition-opacity">
+            <Link href="/" className="font-display font-bold text-xl text-primary tracking-tight hover:opacity-85 transition-opacity">
               ◈ ClimateOS 2026
             </Link>
             <p className="text-site-muted text-sm mt-3 transition-colors duration-300">
@@ -33,7 +33,7 @@ export function Footer() {
             <ul className="grid grid-cols-2 gap-2">
               {FOOTER_LINKS.primary.map(link => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-site-muted hover:text-cyan-600 dark:hover:text-cyan-200 transition-colors">
+                  <Link href={link.href} className="text-sm text-site-muted hover:text-primary transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -51,7 +51,7 @@ export function Footer() {
           <p className="text-xs text-site-muted-dark transition-colors duration-300">
             © 2026 ClimateOS. All rights reserved.
           </p>
-          <Link href="/faq" className="text-xs text-site-muted-dark hover:text-cyan-600 dark:hover:text-cyan-200 transition-colors">
+          <Link href="/faq" className="text-xs text-site-muted-dark hover:text-primary transition-colors">
             Questions and updates
           </Link>
         </div>

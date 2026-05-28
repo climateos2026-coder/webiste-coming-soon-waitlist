@@ -21,10 +21,10 @@ export function Button({
   const baseClasses = 'inline-flex items-center justify-center rounded-md font-semibold tracking-wide transition-colors disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variantClasses = {
-    primary: 'bg-teal-600 text-white hover:bg-teal-500',
-    accent: 'bg-amber-500 text-white hover:bg-amber-400',
-    outline: 'bg-transparent text-teal-400 border border-teal-600 hover:bg-teal-900/20',
-    ghost: 'bg-transparent text-neutral-200 hover:bg-neutral-700',
+    primary: 'bg-primary text-white hover:bg-primary-hover',
+    accent: 'bg-accent text-white hover:bg-accent-hover',
+    outline: 'bg-transparent text-primary border border-primary hover:bg-primary-soft/10 dark:text-primary-soft dark:border-primary-soft',
+    ghost: 'bg-transparent text-site-text hover:bg-site-card-elevated',
   };
 
   const sizeClasses = {

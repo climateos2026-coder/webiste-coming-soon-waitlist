@@ -125,10 +125,10 @@ export function ClimateGlobe() {
 
     // Set up Orbit beacons (Climate data packets)
     const beacons: Beacon[] = [
-      { angle: 0, speed: 0.015, color: '#38bdf8', size: 5 }, // Cyan
-      { angle: Math.PI * 0.5, speed: 0.012, color: '#a855f7', size: 6 }, // Purple
-      { angle: Math.PI, speed: 0.018, color: '#2dd4bf', size: 4.5 }, // Teal
-      { angle: Math.PI * 1.5, speed: 0.010, color: '#fb923c', size: 5.5 }, // Orange
+      { angle: 0, speed: 0.015, color: '#0B6E5A', size: 5 }, // Deep Teal
+      { angle: Math.PI * 0.5, speed: 0.012, color: '#E07B39', size: 6 }, // Burnt Orange
+      { angle: Math.PI, speed: 0.018, color: '#2F8F5B', size: 4.5 }, // Success Green
+      { angle: Math.PI * 1.5, speed: 0.010, color: '#2F6FD6', size: 5.5 }, // Info Blue
     ];
 
     const rotateX = (y: number, z: number, angle: number) => {
@@ -194,9 +194,8 @@ export function ClimateGlobe() {
           centerY,
           radius + 80
         );
-        glowGrad.addColorStop(0, 'rgba(45, 212, 191, 0.05)'); // teal
-        glowGrad.addColorStop(0.4, 'rgba(56, 189, 248, 0.04)'); // cyan
-        glowGrad.addColorStop(0.8, 'rgba(168, 85, 247, 0.01)'); // purple
+        glowGrad.addColorStop(0, 'rgba(11, 110, 90, 0.15)'); // Deep Teal
+        glowGrad.addColorStop(0.5, 'rgba(224, 123, 57, 0.08)'); // Burnt Orange
         glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = glowGrad;
         ctx.beginPath();
@@ -212,8 +211,8 @@ export function ClimateGlobe() {
           centerY,
           radius + 50
         );
-        glowGrad.addColorStop(0, 'rgba(14, 137, 112, 0.04)');
-        glowGrad.addColorStop(0.6, 'rgba(56, 189, 248, 0.03)');
+        glowGrad.addColorStop(0, 'rgba(11, 110, 90, 0.08)'); // Deep Teal
+        glowGrad.addColorStop(0.6, 'rgba(224, 123, 57, 0.04)'); // Burnt Orange
         glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = glowGrad;
         ctx.beginPath();
@@ -222,8 +221,8 @@ export function ClimateGlobe() {
       }
 
       // Draw Orbit rings projection
-      const drawOrbitRing = (tiltAngle: number, color1: string, color2: string) => {
-        ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.15)' : 'rgba(14, 116, 144, 0.12)';
+      const drawOrbitRing = (tiltAngle: number, color: string) => {
+        ctx.strokeStyle = isDark ? `${color}33` : `${color}22`;
         ctx.lineWidth = 1;
         ctx.beginPath();
 
@@ -257,8 +256,8 @@ export function ClimateGlobe() {
       };
 
       // Draw two tilted orbit paths
-      drawOrbitRing(0.6, '#38bdf8', '#a855f7');
-      drawOrbitRing(-0.4, '#2dd4bf', '#fb923c');
+      drawOrbitRing(0.6, '#0B6E5A'); // Deep Teal
+      drawOrbitRing(-0.4, '#E07B39'); // Burnt Orange
 
       // Draw particles
       renderedParticles.forEach((rp) => {
@@ -286,23 +285,23 @@ export function ClimateGlobe() {
         if (base.isLand) {
           if (isDark) {
             fillStyle = hoverGlow > 0
-              ? `rgba(52, 211, 153, ${0.8 + hoverGlow * 0.2})`  // Neon green
-              : 'rgba(52, 211, 153, 0.72)';
+              ? `rgba(224, 123, 57, ${0.8 + hoverGlow * 0.2})`  // Burnt Orange hover
+              : 'rgba(11, 110, 90, 0.75)'; // Brand Deep Teal
           } else {
             fillStyle = hoverGlow > 0
-              ? `rgba(14, 137, 112, ${0.85 + hoverGlow * 0.15})` // Deep Emerald
-              : 'rgba(14, 137, 112, 0.75)';
+              ? `rgba(224, 123, 57, ${0.85 + hoverGlow * 0.15})` // Burnt Orange hover
+              : 'rgba(11, 110, 90, 0.75)'; // Brand Deep Teal
           }
         } else {
-          // Water/Grid point
+          // Water/Grid point (soft semi-transparent Teal)
           if (isDark) {
             fillStyle = hoverGlow > 0
-              ? `rgba(56, 189, 248, ${0.45 + hoverGlow * 0.3})`  // Neon blue
-              : 'rgba(56, 189, 248, 0.18)';
+              ? `rgba(11, 110, 90, ${0.4 + hoverGlow * 0.3})`  // Deep Teal hover
+              : 'rgba(11, 110, 90, 0.15)'; // Soft Teal
           } else {
             fillStyle = hoverGlow > 0
-              ? `rgba(6, 182, 212, ${0.5 + hoverGlow * 0.3})`   // Cyan
-              : 'rgba(6, 182, 212, 0.22)';
+              ? `rgba(11, 110, 90, ${0.45 + hoverGlow * 0.3})`
+              : 'rgba(11, 110, 90, 0.15)';
           }
         }
 

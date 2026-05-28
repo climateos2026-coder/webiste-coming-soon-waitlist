@@ -19,11 +19,11 @@ export default function TracksPage() {
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: 'spring', duration: 0.8, bounce: 0.1 }}
-            className="w-full rounded-3xl border border-site-border bg-site-card p-8 md:p-12 text-center backdrop-blur-xl shadow-2xl relative overflow-hidden group transition-all duration-300 hover:border-cyan-500/20"
+            className="w-full rounded-3xl border border-site-border bg-site-card p-8 md:p-12 text-center backdrop-blur-xl shadow-2xl relative overflow-hidden group transition-all duration-300 hover:border-primary/20"
           >
             {/* Glowing accents inside the mystery card */}
-            <div className="absolute -left-32 -top-32 h-64 w-64 rounded-full bg-cyan-500/5 blur-3xl opacity-60 group-hover:bg-cyan-500/10 transition-colors duration-500 pointer-events-none" />
-            <div className="absolute -right-32 -bottom-32 h-64 w-64 rounded-full bg-indigo-500/5 blur-3xl opacity-60 group-hover:bg-indigo-500/10 transition-colors duration-500 pointer-events-none" />
+            <div className="absolute -left-32 -top-32 h-64 w-64 rounded-full bg-primary/5 blur-3xl opacity-60 group-hover:bg-primary/10 transition-colors duration-500 pointer-events-none" />
+            <div className="absolute -right-32 -bottom-32 h-64 w-64 rounded-full bg-accent/5 blur-3xl opacity-60 group-hover:bg-accent/10 transition-colors duration-500 pointer-events-none" />
 
             {/* Glowing interactive mystery icon stack */}
             <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-site-card border border-site-border relative mb-8 shadow-inner">
@@ -31,23 +31,23 @@ export default function TracksPage() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
-                className="absolute inset-[-6px] rounded-full border border-dashed border-cyan-500/30"
+                className="absolute inset-[-6px] rounded-full border border-dashed border-primary/30"
               />
               {/* Inner pulsing glow */}
               <motion.div
                 animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
                 transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                className="absolute inset-2 rounded-full bg-cyan-500/10 blur-md"
+                className="absolute inset-2 rounded-full bg-primary/10 blur-md"
               />
               
               <div className="relative flex items-center justify-center">
-                <Lock className="h-10 w-10 text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]" />
-                <HelpCircle className="h-6 w-6 text-indigo-400 absolute -right-2 -bottom-2 bg-site-card rounded-full p-0.5 border border-site-border" />
+                <Lock className="h-10 w-10 text-primary drop-shadow-[0_0_10px_rgba(11,110,90,0.4)]" />
+                <HelpCircle className="h-6 w-6 text-accent absolute -right-2 -bottom-2 bg-site-card rounded-full p-0.5 border border-site-border" />
               </div>
             </div>
 
             {/* Category / Status Tag */}
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-400 mb-6 shadow-sm">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary mb-6 shadow-sm">
               <Sparkles size={12} className="animate-spin-slow" />
               Mystery Phase
             </div>
@@ -72,17 +72,17 @@ export default function TracksPage() {
 
             {/* Teaser stats grid */}
             <div className="grid gap-4 sm:grid-cols-3 max-w-2xl mx-auto mb-10 text-left">
-              <div className="rounded-2xl border border-site-border bg-site-card-elevated p-4 backdrop-blur transition-all duration-300 hover:border-cyan-500/10">
+              <div className="rounded-2xl border border-site-border bg-site-card-elevated p-4 backdrop-blur transition-all duration-300 hover:border-primary/10">
                 <span className="text-2xl mb-1 block">🌍</span>
                 <h4 className="font-bold text-site-text text-sm">5 Core Domains</h4>
                 <p className="text-xs text-site-muted mt-1 leading-relaxed">Spanning critical global systems & resilience targets.</p>
               </div>
-              <div className="rounded-2xl border border-site-border bg-site-card-elevated p-4 backdrop-blur transition-all duration-300 hover:border-cyan-500/10">
+              <div className="rounded-2xl border border-site-border bg-site-card-elevated p-4 backdrop-blur transition-all duration-300 hover:border-primary/10">
                 <span className="text-2xl mb-1 block">📊</span>
                 <h4 className="font-bold text-site-text text-sm">Curated Data</h4>
                 <p className="text-xs text-site-muted mt-1 leading-relaxed">High-resolution telemetry, weather forecasts & APIs.</p>
               </div>
-              <div className="rounded-2xl border border-site-border bg-site-card-elevated p-4 backdrop-blur transition-all duration-300 hover:border-cyan-500/10">
+              <div className="rounded-2xl border border-site-border bg-site-card-elevated p-4 backdrop-blur transition-all duration-300 hover:border-primary/10">
                 <span className="text-2xl mb-1 block">🚀</span>
                 <h4 className="font-bold text-site-text text-sm">Real Deployments</h4>
                 <p className="text-xs text-site-muted mt-1 leading-relaxed">Outcome-driven build sprint directly targeting climate action.</p>
@@ -100,7 +100,7 @@ export default function TracksPage() {
               </Link>
               <a
                 href="mailto:climateos26@gmail.com"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_12px_30px_rgba(6,182,212,0.2)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(11,110,90,0.2)] transition-all hover:-translate-y-0.5 active:translate-y-0"
               >
                 <Mail size={16} />
                 Ask Questions
@@ -110,7 +110,7 @@ export default function TracksPage() {
             {/* Footer contact info on card */}
             <p className="mt-8 text-xs text-site-muted-dark font-medium flex items-center justify-center gap-1.5">
               <span>Need clarification? Reach out directly:</span>
-              <a href="mailto:climateos26@gmail.com" className="text-cyan-500 hover:underline">
+              <a href="mailto:climateos26@gmail.com" className="text-primary hover:underline">
                 climateos26@gmail.com
               </a>
             </p>

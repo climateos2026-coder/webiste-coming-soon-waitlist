@@ -11,17 +11,17 @@ export function Textarea({ label, error, helperText, className, ...props }: Text
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label className="text-sm font-medium text-neutral-100">
+        <label className="text-sm font-medium text-site-text/90">
           {label}
           {props.required && <span className="text-error">*</span>}
         </label>
       )}
       <textarea
         className={clsx(
-          'w-full min-h-20 px-4 py-2 rounded-md bg-neutral-700 border',
-          error ? 'border-error' : 'border-neutral-600',
-          'text-neutral-0 placeholder:text-neutral-300',
-          'focus:outline-none focus:ring-2 focus:ring-teal-500',
+          'w-full min-h-20 px-4 py-2 rounded-md bg-site-card-elevated border transition-all duration-200',
+          error ? 'border-error/80 focus:border-error' : 'border-site-border focus:border-primary/80',
+          'text-site-text placeholder:text-site-muted-dark/60',
+          'focus:outline-none focus:ring-2 focus:ring-primary/20',
           'resize-vertical',
           className
         )}
@@ -29,7 +29,7 @@ export function Textarea({ label, error, helperText, className, ...props }: Text
         {...props}
       />
       {error && <span className="text-xs text-error">{error}</span>}
-      {helperText && !error && <span className="text-xs text-neutral-200">{helperText}</span>}
+      {helperText && !error && <span className="text-xs text-site-muted">{helperText}</span>}
     </div>
   );
 }

@@ -99,16 +99,16 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="rounded-xl border border-site-border bg-site-card-elevated overflow-hidden transition-all duration-300 hover:border-cyan-500/20 hover:shadow-md hover:shadow-cyan-500/5">
+    <div className="rounded-xl border border-site-border bg-site-card-elevated overflow-hidden transition-all duration-300 hover:border-primary/20 hover:shadow-md hover:shadow-primary/5">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left p-4 cursor-pointer focus:outline-none transition-colors text-site-text hover:text-cyan-600 dark:hover:text-cyan-200 select-none flex items-center justify-between gap-4 font-semibold text-base"
+        className="w-full text-left p-4 cursor-pointer focus:outline-none transition-colors text-site-text hover:text-primary select-none flex items-center justify-between gap-4 font-semibold text-base"
       >
         <span>{question}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2, ease: 'easeInOut' }}
-          className="flex-shrink-0 text-cyan-600 dark:text-cyan-400"
+          className="flex-shrink-0 text-primary"
         >
           <ChevronDown size={18} />
         </motion.div>
@@ -147,8 +147,8 @@ export default function FAQPage() {
               className="rounded-3xl border border-site-border bg-site-card p-8 backdrop-blur md:p-12 shadow-sm transition-all duration-300"
             >
               <div className="flex items-center gap-2">
-                <HelpCircle className="text-cyan-500 h-5 w-5 animate-pulse" />
-                <p className="text-xs uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-200 transition-colors duration-300 font-semibold">
+                <HelpCircle className="text-primary h-5 w-5 animate-pulse" />
+                <p className="text-xs uppercase tracking-[0.22em] text-primary transition-colors duration-300 font-semibold">
                   Frequently Asked Questions
                 </p>
               </div>
@@ -160,8 +160,8 @@ export default function FAQPage() {
                 and problem-solvers around the world.
               </p>
               <div className="mt-8 rounded-2xl border border-site-border bg-site-card-elevated p-6 shadow-sm transition-colors relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors duration-300" />
-                <h2 className="font-display text-2xl font-bold text-cyan-600 dark:text-cyan-200">Coming Soon</h2>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-300" />
+                <h2 className="font-display text-2xl font-bold text-primary">Coming Soon</h2>
                 <p className="mt-2 text-site-muted">
                   We are building the full event experience now. Applications, track details, mentor announcements,
                   and the participant handbook will be released soon.
@@ -199,7 +199,7 @@ export default function FAQPage() {
               viewport={{ once: true }}
               className="mt-8 rounded-3xl border border-site-border bg-site-card-elevated p-6 md:p-8 shadow-sm transition-colors duration-300"
             >
-              <h2 className="font-display text-2xl font-bold text-cyan-600 dark:text-cyan-200">Final Note</h2>
+              <h2 className="font-display text-2xl font-bold text-primary">Final Note</h2>
               <p className="mt-3 text-site-muted leading-relaxed">
                 ClimateOS 2026 is being built for people who want to make climate work real, useful, and deployable.
                 If you care about solving urgent problems with code, data, design, or systems thinking, this is for you.

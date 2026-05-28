@@ -32,16 +32,16 @@ export function DetailComingSoon({
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', duration: 0.8, bounce: 0.15 }}
-          className="rounded-3xl border border-site-border bg-site-card p-8 backdrop-blur-md md:p-12 shadow-xl hover:shadow-cyan-500/5 transition-all duration-300 relative overflow-hidden group"
+          className="rounded-3xl border border-site-border bg-site-card p-8 backdrop-blur-md md:p-12 shadow-xl hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden group"
         >
           {/* Inner radial highlight */}
-          <div className="pointer-events-none absolute -left-20 -top-20 h-40 w-40 rounded-full bg-cyan-500/5 blur-3xl transition-opacity group-hover:opacity-100" />
+          <div className="pointer-events-none absolute -left-20 -top-20 h-40 w-40 rounded-full bg-primary/5 blur-3xl transition-opacity group-hover:opacity-100" />
           
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.15 }}
-            className="inline-flex rounded-full border border-site-border-strong bg-site-card-elevated px-4 py-1.5 text-xs uppercase tracking-[0.2em] font-semibold text-cyan-600 dark:text-cyan-200 transition-colors"
+            className="inline-flex rounded-full border border-site-border-strong bg-site-card-elevated px-4 py-1.5 text-xs uppercase tracking-[0.2em] font-semibold text-primary transition-colors"
           >
             {badge}
           </motion.span>
@@ -72,7 +72,7 @@ export function DetailComingSoon({
           >
             <Link
               href={primaryHref}
-              className="rounded-xl bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 hover:shadow-cyan-500/20"
+              className="rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 hover:shadow-primary/20"
             >
               {primaryLabel}
             </Link>
