@@ -14,10 +14,10 @@ export function DetailComingSoon({
   title,
   description,
   badge = 'Coming soon',
-  primaryHref = '/register',
-  primaryLabel = 'Join Waitlist',
-  secondaryHref = '/contact',
-  secondaryLabel = 'Contact Organizers',
+  primaryHref = '/faq',
+  primaryLabel = 'Read FAQ',
+  secondaryHref = '/tracks',
+  secondaryLabel = 'Explore Tracks',
 }: DetailComingSoonProps) {
   return (
     <section className="relative overflow-hidden">

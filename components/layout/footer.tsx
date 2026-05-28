@@ -4,6 +4,7 @@ const FOOTER_LINKS = {
   primary: [
     { href: '/', label: 'Home' },
     { href: '/tracks', label: 'Tracks' },
+    { href: '/timeline', label: 'Timeline' },
     { href: '/faq', label: 'FAQ' },
     { href: '/sponsors', label: 'Sponsors' },
     { href: '/recruitment', label: 'Recruitment' },
