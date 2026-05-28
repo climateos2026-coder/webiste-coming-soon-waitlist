@@ -10,9 +10,11 @@ if (supabaseUrl) {
   }
 }
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://plausible.io;
+  script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} https://plausible.io;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' data: https://fonts.gstatic.com;
   img-src 'self' data: https:;
