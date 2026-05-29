@@ -6,8 +6,8 @@ import { ExternalLink, Loader2, Terminal, ShieldAlert } from 'lucide-react';
 
 export function WaitlistSection() {
   const [iframeLoading, setIframeLoading] = useState(true);
-  const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScxgqFBvxa7G-6UHVSZ4FochhDlyP_rcCwPdVyLbR5LUlEhwQ/viewform?embedded=true';
-  const directUrl = 'https://forms.gle/GJoo5BreWx7rB9wD8';
+  const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSe-KdYY0OvG7T7hMmJ814H_Ut6_IT-T1f2lTlqYEuZe-zT63Q/viewform?embedded=true';
+  const directUrl = 'https://forms.gle/BE377GYgunCKDSzm8';
 
   return (
     <section className="relative w-full max-w-7xl mx-auto px-4 pb-28 pt-10 md:px-8 z-10">
