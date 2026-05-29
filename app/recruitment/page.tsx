@@ -12,7 +12,6 @@ export default function RecruitmentPage() {
       <Navbar />
       <main className="min-h-screen bg-site-bg pt-20 transition-colors duration-300">
         <section className="relative overflow-hidden flex items-center justify-center">
-          {/* Subtle glowing radial background */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,var(--glow-3),transparent_35%),radial-gradient(circle_at_80%_15%,var(--glow-1),transparent_35%)] transition-colors duration-300" />
           
           <div className="relative mx-auto max-w-5xl px-4 py-16 w-full z-10">
@@ -22,7 +21,6 @@ export default function RecruitmentPage() {
               transition={{ type: 'spring', duration: 0.8, bounce: 0.1 }}
               className="rounded-3xl border border-site-border bg-site-card p-8 backdrop-blur md:p-12 shadow-xl hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden group"
             >
-              {/* Decorative radial overlay */}
               <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-primary/5 blur-3xl transition-opacity group-hover:opacity-100" />
 
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -137,4 +135,3 @@ export default function RecruitmentPage() {
     </>
   );
 }
-

@@ -5,12 +5,5 @@
       "destination": "/"
     }
   ],
-  "redirects": [
-    {
-      "source": "/tracks/:path*",
-      "destination": "/#tracks",
-      "statusCode": 301
-    }
-  ],
   "trailingSlash": false
 }

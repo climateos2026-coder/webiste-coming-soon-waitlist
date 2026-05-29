@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'climateoshack.dev',
+        hostname: 'climateos2026.vercel.app',
       },
       {
         protocol: 'https',

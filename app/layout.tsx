@@ -2,22 +2,32 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { PlausibleAnalytics } from '@/components/analytics/plausible';
 
+const VERCEL_URL = process.env.VERCEL_URL || process.env.NEXT_PUBLIC_SITE_URL || 'climateos2026.vercel.app';
+const SITE_URL = VERCEL_URL.startsWith('http') ? VERCEL_URL : `https://${VERCEL_URL}`;
+
 export const metadata: Metadata = {
-  title: "ClimateOS 2026 — Global Climate Tech Hackathon",
+  title: {
+    default: "ClimateOS 2026 — Global Climate Tech Hackathon",
+    template: "%s | ClimateOS 2026",
+  },
   description: "48 hours. 500 builders. One planet. Join the global online hackathon building open-source climate tech — October 10-12, 2026.",
-  metadataBase: new URL('https://climateoshack.dev'),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: "ClimateOS 2026",
-    description: "48 hours. 500 builders. One planet.",
-    url: "https://climateoshack.dev",
+    description: "48 hours. 500 builders. One planet. Join the global online hackathon building open-source climate tech — October 10-12, 2026.",
+    url: SITE_URL,
     siteName: "ClimateOS 2026",
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ClimateOS 2026",
-    description: "48 hours. 500 builders. One planet.",
+    description: "48 hours. 500 builders. One planet. Join the global online hackathon building open-source climate tech — October 10-12, 2026.",
     creator: "@ClimateOSHack",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

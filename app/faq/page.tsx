@@ -145,7 +145,6 @@ export default function FAQPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_15%,var(--glow-3),transparent_30%),radial-gradient(circle_at_75%_8%,var(--glow-1),transparent_28%)] transition-colors duration-300" />
           
           <div className="relative mx-auto max-w-6xl px-4 py-20">
-            {/* Header section card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -174,7 +173,6 @@ export default function FAQPage() {
               </div>
             </motion.div>
 
-            {/* Accordion List by Section */}
             <div className="mt-8 space-y-8">
               {FAQ_SECTIONS.map((section, sectionIdx) => (
                 <motion.section
@@ -197,7 +195,6 @@ export default function FAQPage() {
               ))}
             </div>
 
-            {/* Footer note card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
