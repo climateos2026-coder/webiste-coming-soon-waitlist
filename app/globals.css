@@ -274,8 +274,8 @@ body::after {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.20); }
-  50%       { box-shadow: 0 0 40px rgba(168, 85, 247, 0.28); }
+  0%, 100% { box-shadow: 0 0 20px rgba(11, 110, 90, 0.20); }
+  50%       { box-shadow: 0 0 40px rgba(224, 123, 57, 0.28); }
 }
 
 @keyframes shimmer {

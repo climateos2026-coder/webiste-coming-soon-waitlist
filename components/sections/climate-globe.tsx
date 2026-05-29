@@ -85,7 +85,7 @@ export function ClimateGlobe() {
     // Generate Globe Particles (Spherical distribution)
     const particles: Particle[] = [];
     const radius = 150;
-    const particleCount = 2000;
+    const particleCount = 1200;
 
     // Procedural Landmass Generator using multiple sine octaves
     const checkIsLand = (theta: number, phi: number) => {
@@ -443,7 +443,7 @@ export function ClimateGlobe() {
       />
       
       {/* Dynamic light-reflection aura overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-radial-gradient from-transparent via-transparent to-site-bg opacity-30 z-20" />
+      <div className="pointer-events-none absolute inset-0 opacity-30 z-20" style={{ background: 'radial-gradient(circle at center, transparent, transparent 40%, var(--bg-primary) 100%)' }} />
     </div>
   );
 }

@@ -89,6 +89,8 @@ export function Navbar() {
             className="md:hidden p-2 rounded-xl text-site-text hover:bg-site-card-elevated transition-colors"
             onClick={() => setOpen(!open)}
             aria-label="Toggle navigation"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -96,7 +98,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-16 bg-site-bg z-40 flex flex-col p-6 gap-6 transition-colors duration-300">
+        <div id="mobile-menu" className="fixed inset-0 top-16 bg-site-bg z-40 flex flex-col p-6 gap-6 transition-colors duration-300">
           {NAV_LINKS.map(link => (
             <Link
               key={link.href}

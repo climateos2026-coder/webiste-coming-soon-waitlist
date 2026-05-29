@@ -21,15 +21,14 @@ export function ClimateTicker() {
     <div className="bg-primary-soft/10 border-y border-site-border py-3 overflow-hidden" aria-live="polite" role="marquee">
       <div className="flex animate-ticker whitespace-nowrap">
         {allStats.map((stat, index) => (
-          <a
+          <span
             key={`${stat.id}-${index}`}
-            href={stat.trackSlug ? `/tracks/${stat.trackSlug}` : '#'}
             className="flex items-center gap-2 text-sm font-mono text-site-muted hover:text-primary transition-colors mx-6"
           >
             <span className="text-lg">{stat.emoji}</span>
             <span>{stat.text}: <span className="text-accent font-semibold">{stat.value}</span></span>
             <span className="text-site-muted-dark/50">·</span>
-          </a>
+          </span>
         ))}
       </div>
     </div>

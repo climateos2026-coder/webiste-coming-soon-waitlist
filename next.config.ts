@@ -19,7 +19,7 @@ const cspHeader = `
   font-src 'self' data: https://fonts.gstatic.com;
   img-src 'self' data: https:;
   connect-src 'self' https://api.brevo.com https://plausible.io https://${supabaseHostname};
-  frame-src 'self' https://docs.google.com;
+  frame-src 'self' https://docs.google.com https://forms.gle;
   frame-ancestors 'none';
 `.replace(/\s{2,}/g, ' ').trim();
 
@@ -50,10 +50,6 @@ const nextConfig: NextConfig = {
             value: cspHeader,
           },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
@@ -66,8 +62,17 @@ const nextConfig: NextConfig = {
             value: 'max-age=31536000; includeSubDomains; preload',
           },
           {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
+            key: 'Permissions-Policy',
+            value: 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

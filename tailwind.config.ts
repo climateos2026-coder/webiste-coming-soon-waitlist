@@ -94,8 +94,8 @@ const config: Config = {
           to: { transform: 'translateX(-50%)' },
         },
         pulseGlow: {
-          '0%, 100%': { boxShadow: 'var(--tw-shadow-glow)' },
-          '50%': { boxShadow: 'var(--tw-shadow-amber)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(11, 110, 90, 0.20)' },
+          '50%': { boxShadow: '0 0 40px rgba(224, 123, 57, 0.28)' },
         },
         countUp: {
           from: { opacity: '0', transform: 'translateY(100%)' },

@@ -6,8 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Select } from '@/components/ui/select';
+
+const inputClass = "h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200";
+const textareaClass = "w-full rounded-xl border border-site-border bg-site-card-elevated px-4 py-3 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200";
 
 const TRACK_OPTIONS = [
+  { value: '', label: 'Select a preferred track' },
   { value: 'heatshield', label: 'HeatShield - Urban Heat Islands' },
   { value: 'floodnet', label: 'FloodNet - Flood Warning Systems' },
   { value: 'farmfuture', label: 'FarmFuture - Climate Agriculture' },
@@ -60,9 +65,9 @@ export function WaitlistForm() {
       const csrfToken = getCookie('csrf_token');
       const res = await fetch('/api/waitlist', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken || '',
+          'x-csrf-token': csrfToken || '',
         },
         body: JSON.stringify(payload),
       });
@@ -106,7 +111,7 @@ export function WaitlistForm() {
             {...register('name')}
             required
             placeholder="Your full name"
-            className="h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200"
+            className={inputClass}
           />
           {errors.name && <p className="text-xs text-error">{errors.name.message}</p>}
         </div>
@@ -118,7 +123,7 @@ export function WaitlistForm() {
             type="email"
             required
             placeholder="you@example.com"
-            className="h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200"
+            className={inputClass}
           />
           {errors.email && <p className="text-xs text-error">{errors.email.message}</p>}
         </div>
@@ -128,7 +133,7 @@ export function WaitlistForm() {
           <input
             {...register('country')}
             placeholder="Country"
-            className="h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200"
+            className={inputClass}
           />
         </div>
 
@@ -137,7 +142,7 @@ export function WaitlistForm() {
           <input
             {...register('role')}
             placeholder="Engineer, Designer, Researcher..."
-            className="h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200"
+            className={inputClass}
           />
         </div>
       </div>
@@ -148,17 +153,11 @@ export function WaitlistForm() {
           name="trackInterest"
           control={control}
           render={({ field }) => (
-            <select
+            <Select
               {...field}
-              className="h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text focus:border-primary focus:outline-none cursor-pointer transition-all duration-200"
-            >
-              <option value="" className="bg-site-card-elevated text-site-text">Select a preferred track</option>
-              {TRACK_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value} className="bg-site-card-elevated text-site-text">
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              options={TRACK_OPTIONS}
+              className="h-12 rounded-xl"
+            />
           )}
         />
       </div>
@@ -170,7 +169,7 @@ export function WaitlistForm() {
           maxLength={240}
           rows={4}
           placeholder="What urgent challenge do you want to work on?"
-          className="w-full rounded-xl border border-site-border bg-site-card-elevated px-4 py-3 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200"
+          className={textareaClass}
         />
         <div className="flex items-center justify-between">
           {errors.climateProblem ? (
@@ -187,7 +186,7 @@ export function WaitlistForm() {
         <input
           {...register('referralSource')}
           placeholder="Community, friend, social, newsletter..."
-          className="h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200"
+          className={inputClass}
         />
       </div>
 

@@ -97,12 +97,16 @@ const FAQ_SECTIONS = [
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const contentId = `faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`;
 
   return (
     <div className="rounded-xl border border-site-border bg-site-card-elevated overflow-hidden transition-all duration-300 hover:border-primary/20 hover:shadow-md hover:shadow-primary/5">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full text-left p-4 cursor-pointer focus:outline-none transition-colors text-site-text hover:text-primary select-none flex items-center justify-between gap-4 font-semibold text-base"
+        aria-expanded={isOpen}
+        aria-controls={contentId}
+        role="button"
       >
         <span>{question}</span>
         <motion.div
@@ -116,6 +120,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            id={contentId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
