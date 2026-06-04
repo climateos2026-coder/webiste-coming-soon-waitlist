@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { POST } from '../app/api/waitlist/route';
 import { NextRequest } from 'next/server';
 
-// Mock dependencies
 vi.mock('@/lib/supabase/server', () => ({
   createServerClient: () => ({
     from: () => ({
@@ -11,7 +10,6 @@ vi.mock('@/lib/supabase/server', () => ({
   })
 }));
 
-// Mock rate-limit to avoid state leaking between tests
 vi.mock('@/lib/rate-limit', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/rate-limit')>();
   return {
@@ -28,18 +26,15 @@ describe('POST /api/waitlist', () => {
     country: 'Testland',
   };
 
-  const createRequest = (body: any, headers: Record<string, string> = {}, cookies: Record<string, string> = {}) => {
+  const createRequest = (body: Record<string, unknown>, headers: Record<string, string> = {}, cookies: Record<string, string> = {}) => {
     const req = new NextRequest('http://localhost/api/waitlist', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: new Headers(headers),
     });
-    
-    // Mock cookies
     Object.entries(cookies).forEach(([key, value]) => {
       req.cookies.set(key, value);
     });
-    
     return req;
   };
 
@@ -63,12 +58,12 @@ describe('POST /api/waitlist', () => {
 
   it('fails if Origin does not match Host', async () => {
     const req = createRequest(
-      validPayload, 
-      { 
+      validPayload,
+      {
         'x-csrf-token': 'valid-token',
         'host': 'climateoshack.dev',
         'origin': 'https://evil.com'
-      }, 
+      },
       { 'csrf_token': 'valid-token' }
     );
     const res = await POST(req);
@@ -77,8 +72,8 @@ describe('POST /api/waitlist', () => {
 
   it('fails if name contains CRLF', async () => {
     const req = createRequest(
-      { ...validPayload, name: 'Hacker\r\nBcc: evil@evil.com' }, 
-      { 'x-csrf-token': 'valid-token', 'host': 'climateoshack.dev', 'origin': 'https://climateoshack.dev' }, 
+      { ...validPayload, name: 'Hacker\r\nBcc: evil@evil.com' },
+      { 'x-csrf-token': 'valid-token', 'host': 'climateoshack.dev', 'origin': 'https://climateoshack.dev' },
       { 'csrf_token': 'valid-token' }
     );
     const res = await POST(req);
@@ -89,18 +84,41 @@ describe('POST /api/waitlist', () => {
 
   it('fails if optional fields exceed length bounds', async () => {
     const req = createRequest(
-      { ...validPayload, country: 'A'.repeat(101) }, 
-      { 'x-csrf-token': 'valid-token' }, 
+      { ...validPayload, country: 'A'.repeat(101) },
+      { 'x-csrf-token': 'valid-token' },
       { 'csrf_token': 'valid-token' }
     );
     const res = await POST(req);
     expect(res.status).toBe(400);
   });
 
+  it('rejects disposable emails', async () => {
+    const req = createRequest(
+      { ...validPayload, email: 'test@mailinator.com' },
+      { 'x-csrf-token': 'valid-token', 'host': 'climateoshack.dev', 'origin': 'https://climateoshack.dev' },
+      { 'csrf_token': 'valid-token' }
+    );
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+  });
+
+  it('returns 429 when rate limit is exceeded', async () => {
+    const { rateLimit: originalRateLimit } = await import('@/lib/rate-limit');
+    vi.mocked(originalRateLimit).mockResolvedValueOnce({ success: false, limitTriggered: 'minute', resetTime: Date.now() + 60000 });
+
+    const req = createRequest(
+      validPayload,
+      { 'x-csrf-token': 'valid-token', 'host': 'climateoshack.dev', 'origin': 'https://climateoshack.dev' },
+      { 'csrf_token': 'valid-token' }
+    );
+    const res = await POST(req);
+    expect(res.status).toBe(429);
+  });
+
   it('succeeds with valid payload and matching CSRF', async () => {
     const req = createRequest(
-      validPayload, 
-      { 'x-csrf-token': 'valid-token' }, 
+      validPayload,
+      { 'x-csrf-token': 'valid-token', 'host': 'climateoshack.dev', 'origin': 'https://climateoshack.dev' },
       { 'csrf_token': 'valid-token' }
     );
     const res = await POST(req);

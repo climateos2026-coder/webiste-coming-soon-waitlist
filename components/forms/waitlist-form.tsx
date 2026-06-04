@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -36,25 +36,63 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+interface WaitlistFormProps {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
+
+const DRAFT_KEY = 'climateos_waitlist_draft';
+const KNOWN_FIELDS: Array<keyof FormData> = ['name', 'email', 'country', 'role', 'trackInterest', 'climateProblem', 'referralSource'];
+
 const getCookie = (name: string): string | null => {
   if (typeof document === 'undefined') return null;
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   return match ? decodeURIComponent(match[2]) : null;
 };
 
-export function WaitlistForm() {
+export function WaitlistForm({ onSuccess, onError }: WaitlistFormProps) {
   const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [isReviseMode, setIsReviseMode] = useState(false);
 
-  const { register, watch, handleSubmit, control, formState: { errors } } = useForm<FormData>({
+  const { register, watch, handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
   const climateProblem = watch('climateProblem') ?? '';
 
-  const onSubmit = async (data: FormData) => {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (!saved) return;
+      const draft = JSON.parse(saved) as Partial<FormData>;
+      const filtered = Object.fromEntries(
+        Object.entries(draft).filter(([key]) => (KNOWN_FIELDS as string[]).includes(key))
+      ) as Partial<FormData>;
+      if (Object.keys(filtered).length > 0) {
+        reset(filtered);
+      }
+    } catch {
+      localStorage.removeItem(DRAFT_KEY);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const subscription = watch((value) => {
+      try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(value));
+      } catch {
+        localStorage.removeItem(DRAFT_KEY);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  const onSubmit = useCallback(async (data: FormData) => {
     setSubmitting(true);
-    setError(null);
+    setFormError(null);
 
     const payload = {
       ...data,
@@ -75,30 +113,54 @@ export function WaitlistForm() {
       const json = await res.json();
 
       if (res.ok) {
-        setSuccess(true);
+        localStorage.removeItem(DRAFT_KEY);
+        onSuccess?.();
       } else {
-        setError(json.error || 'Something went wrong');
+        if (res.status === 429) {
+          setFormError('Too many attempts. Please wait a moment before trying again.');
+        } else if (res.status === 403) {
+          setFormError('Security validation failed. Please refresh the page and try again.');
+        } else {
+          setFormError(json.error || 'Something went wrong');
+        }
+        onError?.();
       }
     } catch {
-      setError('Network error. Please try again.');
+      setFormError('Network error. Please check your connection and try again.');
+      onError?.();
     } finally {
       setSubmitting(false);
     }
+  }, [onSuccess, onError]);
+
+  const handleReviseLater = () => {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({
+      name: '',
+      email: '',
+      country: '',
+      role: '',
+      trackInterest: '',
+      climateProblem: '',
+      referralSource: '',
+    }));
+    setIsReviseMode(true);
   };
 
-  if (success) {
+  if (isReviseMode) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-primary/25 bg-primary-soft/10 p-6 text-center"
-      >
-        <h3 className="font-display text-2xl font-bold text-primary">You are on the waitlist</h3>
-        <p className="mt-2 text-site-text/80">
-          We will send launch updates and next steps to your inbox.
+      <div className="rounded-2xl border border-site-border bg-site-card-elevated/50 p-8 text-center min-h-[480px] flex flex-col items-center justify-center">
+        <p className="font-display text-xl font-bold text-primary mb-2">Saved for later</p>
+        <p className="text-sm text-site-muted max-w-sm">
+          Your information has been saved locally. Come back anytime to continue your application.
         </p>
-        <p className="mt-1 text-sm text-primary">Contact: climateos26@gmail.com</p>
-      </motion.div>
+        <Button
+          type="button"
+          onClick={() => setIsReviseMode(false)}
+          className="mt-6 rounded-xl bg-gradient-to-r from-primary to-accent text-white hover:from-primary-hover hover:to-accent-hover"
+        >
+          Continue Application
+        </Button>
+      </div>
     );
   }
 
@@ -190,11 +252,32 @@ export function WaitlistForm() {
         />
       </div>
 
-      {error && <p className="rounded-lg border border-error/20 bg-error/10 px-3 py-2 text-sm text-error">{error}</p>}
+      {formError && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-lg border border-error/20 bg-error/10 px-3 py-2 text-sm text-error"
+        >
+          {formError}
+        </motion.div>
+      )}
 
-      <Button type="submit" loading={submitting} className="h-12 w-full rounded-xl bg-gradient-to-r from-primary to-accent text-white hover:from-primary-hover hover:to-accent-hover font-bold shadow-md shadow-primary/5 transition-all">
-        Submit Application Interest
+      <Button
+        type="submit"
+        loading={submitting}
+        disabled={submitting}
+        className="h-12 w-full rounded-xl bg-gradient-to-r from-primary to-accent text-white hover:from-primary-hover hover:to-accent-hover font-bold shadow-md shadow-primary/5 transition-all"
+      >
+        {submitting ? 'Submitting...' : 'Submit Application Interest'}
       </Button>
+
+      <button
+        type="button"
+        onClick={handleReviseLater}
+        className="w-full text-center text-xs text-site-muted hover:text-primary transition-colors pt-2"
+      >
+        Save for later and continue another time
+      </button>
     </form>
   );
 }
