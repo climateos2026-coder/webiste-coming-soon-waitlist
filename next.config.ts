@@ -1,18 +1,18 @@
 import type { NextConfig } from "next";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-let supabaseHostname: string;
+let supabaseHostname: string = "";
 if (supabaseUrl) {
   try {
     supabaseHostname = new URL(supabaseUrl).hostname;
   } catch {
-    supabaseHostname = '';
+    supabaseHostname = "";
   }
-} else {
-  supabaseHostname = '';
 }
 
 const isDev = process.env.NODE_ENV !== 'production';
+
+const supabaseConnect = supabaseHostname ? `https://${supabaseHostname}` : "";
 
 const cspHeader = `
   default-src 'self';
@@ -20,10 +20,24 @@ const cspHeader = `
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' data: https://fonts.gstatic.com;
   img-src 'self' data: https:;
-  connect-src 'self' https://api.brevo.com https://plausible.io https://${supabaseHostname};
+  connect-src 'self' https://api.brevo.com https://plausible.io ${supabaseConnect};
   frame-src 'self' https://docs.google.com https://forms.gle;
   frame-ancestors 'none';
 `.replace(/\s{2,}/g, ' ').trim();
+
+const remotePatterns = [
+  {
+    protocol: 'https' as const,
+    hostname: 'climateos2026.vercel.app',
+  },
+];
+
+if (supabaseHostname) {
+  remotePatterns.push({
+    protocol: 'https' as const,
+    hostname: supabaseHostname,
+  });
+}
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -31,16 +45,7 @@ const nextConfig: NextConfig = {
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'climateos2026.vercel.app',
-      },
-      {
-        protocol: 'https',
-        hostname: supabaseHostname,
-      },
-    ],
+    remotePatterns,
   },
   async headers() {
     return [
