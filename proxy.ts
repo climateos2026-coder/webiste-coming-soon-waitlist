@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const response = NextResponse.next();
   
   // 1. CSRF Double-Submit Cookie Pattern
@@ -31,7 +31,7 @@ export function middleware(request: NextRequest) {
   return response;
 }
 
-// Apply middleware to pages and api routes, excluding asset files
+// Apply proxy to pages and api routes, excluding asset files
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|theme-init.js).*)'],
 };

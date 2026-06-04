@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { PlausibleAnalytics } from '@/components/analytics/plausible';
 
-const VERCEL_URL = process.env.NEXT_PUBLIC_SITE_URL || 'climateos2026.vercel.app';
-const SITE_URL = VERCEL_URL.startsWith('http') ? VERCEL_URL : `https://${VERCEL_URL}`;
-
 // Fallback to canonical production URL for metadata Base to avoid typo preview deployment leaks
 const CANONICAL_URL = 'https://climateos2026.vercel.app';
 
@@ -52,7 +49,11 @@ export default function RootLayout({
     <html lang="en" className="h-full" data-theme="dark">
       <head>
         {/* Runs synchronously before paint — prevents theme flash */}
-        <script src="/theme-init.js" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='light'||t==='dark'?t:'dark');}catch(e){}})();`
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col antialiased" style={{ fontFamily: 'var(--font-body)' }}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md">

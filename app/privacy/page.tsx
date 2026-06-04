@@ -38,7 +38,7 @@ export default function PrivacyPage() {
               <div>
                 <h2 className="text-xl font-bold text-site-text mb-3">1. Introduction</h2>
                 <p>
-                  ClimateOS 2026 ("we", "our", or "us") organizes the global, online climate tech hackathon. We are committed to protecting the privacy of our waitlist registrants, core team and volunteer applicants, and participants. This Privacy Policy describes how we collect, use, and safeguard personal information in compliance with international data protection frameworks, including the European Union's General Data Protection Regulation (GDPR), India's Digital Personal Data Protection (DPDP) Act 2023, and the California Consumer Privacy Act (CCPA).
+                  ClimateOS 2026 (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) organizes the global, online climate tech hackathon. We are committed to protecting the privacy of our waitlist registrants, core team and volunteer applicants, and participants. This Privacy Policy describes how we collect, use, and safeguard personal information in compliance with international data protection frameworks, including the European Union&apos;s General Data Protection Regulation (GDPR), India&apos;s Digital Personal Data Protection (DPDP) Act 2023, and the California Consumer Privacy Act (CCPA).
                 </p>
               </div>
 
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
                 <ul className="list-disc pl-5 space-y-2">
                   <li><strong>Right to Access & Portability:</strong> You can request a copy of all personal information we hold about you.</li>
                   <li><strong>Right to Rectification:</strong> You can request that we correct inaccurate or incomplete data.</li>
-                  <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> You have the right to request that we delete your email, waitlist status, or application details from our files.</li>
+                  <li><strong>Right to Erasure (&quot;Right to be Forgotten&quot;):</strong> You have the right to request that we delete your email, waitlist status, or application details from our files.</li>
                   <li><strong>Right to Withdraw Consent:</strong> You can opt-out of updates or withdraw recruitment requests at any time.</li>
                 </ul>
                 <p className="mt-3">

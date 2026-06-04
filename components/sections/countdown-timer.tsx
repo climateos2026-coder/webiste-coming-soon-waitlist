@@ -35,17 +35,25 @@ export function CountdownTimer() {
   useEffect(() => {
     // Only run on client
     if (typeof window !== 'undefined') {
-      setUserTZ(Intl.DateTimeFormat().resolvedOptions().timeZone);
-      
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       const p = getActivePhase();
-      setPhase(p);
-      setTime(getTimeRemaining(p.target));
+      const remaining = getTimeRemaining(p.target);
+
+      const animFrame = requestAnimationFrame(() => {
+        setUserTZ(tz);
+        setPhase(p);
+        setTime(remaining);
+      });
 
       const tick = setInterval(() => {
         setTime(getTimeRemaining(p.target));
         setPhase(getActivePhase());
       }, 1000);
-      return () => clearInterval(tick);
+
+      return () => {
+        cancelAnimationFrame(animFrame);
+        clearInterval(tick);
+      };
     }
   }, []);
 

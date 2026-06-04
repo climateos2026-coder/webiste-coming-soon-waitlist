@@ -15,7 +15,13 @@ const NAV_LINKS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme') as 'dark' | 'light' | null;
+      return saved || 'dark';
+    }
+    return 'dark';
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -26,13 +32,11 @@ export function Navbar() {
 
   useEffect(() => {
     const saved = localStorage.getItem('theme') as 'dark' | 'light' | null;
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.setAttribute('data-theme', saved);
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-    setMounted(true);
+    document.documentElement.setAttribute('data-theme', saved || 'dark');
+    const animFrame = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(animFrame);
   }, []);
 
   const toggleTheme = () => {

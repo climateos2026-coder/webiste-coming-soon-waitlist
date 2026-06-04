@@ -2,41 +2,22 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Info, ChevronDown, Loader2 } from 'lucide-react';
-import { WaitlistForm } from '@/components/forms/waitlist-form';
+import { ExternalLink, Info, Loader2 } from 'lucide-react';
 
 const FOUNDER_TIP_KEY = 'climateos_waitlist_founder_tip_dismissed';
-const DRAFT_KEY = 'climateos_waitlist_draft';
 
 export function WaitlistSection() {
-  const [formState, setFormState] = useState<'loading' | 'form' | 'success' | 'error'>('loading');
+  const [iframeLoading, setIframeLoading] = useState(true);
   const [showDirectLink, setShowDirectLink] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setFormState('form'), 800);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const dismissed = localStorage.getItem(FOUNDER_TIP_KEY);
-    if (!dismissed) {
+    if (!dismissed && !showDirectLink) {
       const tipTimer = setTimeout(() => setShowDirectLink(true), 3000);
       return () => clearTimeout(tipTimer);
     }
-  }, []);
-
-  const handleError = useCallback(() => {
-    setFormState('error');
-  }, []);
-
-  const handleRetry = useCallback(() => {
-    setFormState('form');
-  }, []);
-
-  const handleSuccess = useCallback(() => {
-    setFormState('success');
-  }, []);
+  }, [showDirectLink]);
 
   const dismissFounderTip = useCallback(() => {
     if (typeof window !== 'undefined') {
@@ -74,9 +55,9 @@ export function WaitlistSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="relative w-full max-w-3xl rounded-3xl border border-site-border bg-site-card/50 backdrop-blur-xl shadow-2xl overflow-hidden transition-all duration-300 hover:border-site-border-strong"
         >
-          <div className="relative min-h-[640px] w-full bg-site-card-elevated/40 flex flex-col">
+          <div className="relative min-h-[720px] w-full bg-site-card-elevated/40 flex flex-col">
             <AnimatePresence mode="wait">
-              {formState === 'loading' && (
+              {iframeLoading && (
                 <motion.div
                   key="loading"
                   initial={{ opacity: 1 }}
@@ -95,71 +76,18 @@ export function WaitlistSection() {
                   </p>
                 </motion.div>
               )}
-
-              {formState === 'success' && (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="relative z-10 flex flex-col items-center justify-center p-8 text-center min-h-[640px]"
-                >
-                  <div className="rounded-full bg-primary-soft/20 p-4 mb-6">
-                    <div className="h-16 w-16 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span className="text-3xl">✓</span>
-                    </div>
-                  </div>
-                  <h3 className="font-display text-3xl font-bold text-primary">
-                    You are on the waitlist
-                  </h3>
-                  <p className="mt-3 text-site-text/80 max-w-md">
-                    We will send launch updates and next steps to your inbox. Applications open July 21, 2026.
-                  </p>
-                  <p className="mt-2 text-sm text-primary font-semibold">
-                    Contact: climateos26@gmail.com
-                  </p>
-                </motion.div>
-              )}
-
-              {formState === 'error' && (
-                <motion.div
-                  key="error"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="relative z-10 flex flex-col items-center justify-center p-8 text-center min-h-[640px]"
-                >
-                  <div className="rounded-full bg-error/10 p-4 mb-6">
-                    <div className="h-16 w-16 rounded-full bg-error/20 flex items-center justify-center">
-                      <span className="text-3xl">!</span>
-                    </div>
-                  </div>
-                  <h3 className="font-display text-2xl font-bold text-error">
-                    Submission failed
-                  </h3>
-                  <p className="mt-3 text-site-text/80 max-w-md">
-                    Something went wrong. Please try again, or contact us directly at climateos26@gmail.com.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={handleRetry}
-                    className="mt-6 rounded-xl bg-gradient-to-r from-primary to-accent px-6 py-3 text-white font-bold shadow-md hover:from-primary-hover hover:to-accent-hover transition-all"
-                  >
-                    Try Again
-                  </button>
-                </motion.div>
-              )}
-
-              {formState === 'form' && (
-                <motion.div
-                  key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative z-10 p-6 md:p-8"
-                >
-                  <WaitlistForm onSuccess={handleSuccess} onError={handleError} />
-                </motion.div>
-              )}
             </AnimatePresence>
+
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSe-KdYY0OvG7T7hMmJ814H_Ut6_IT-T1f2lTlqYEuZe-zT63Q/viewform?embedded=true"
+              width="100%"
+              height="720"
+              className="border-0 w-full z-10 bg-transparent rounded-t-3xl"
+              onLoad={() => setIframeLoading(false)}
+              title="ClimateOS 2026 Registration Waitlist"
+            >
+              Loading…
+            </iframe>
           </div>
 
           <div className="border-t border-site-border px-6 py-4 bg-site-card-elevated/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
@@ -192,14 +120,23 @@ export function WaitlistSection() {
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-primary">Founder Tip</p>
                   <p className="mt-1 text-xs text-site-muted leading-relaxed">
-                    Prefer to use the original Google Form?{' '}
+                    Prefer to open the form directly in Google Forms?{' '}
+                    <a
+                      href="https://forms.gle/4derjc3mE76gHZaq5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-0.5 font-semibold text-primary hover:text-primary-hover underline underline-offset-2 mr-2"
+                    >
+                      Open in new tab
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                    {' • '}
                     <button
                       type="button"
                       onClick={dismissFounderTip}
-                      className="inline-flex items-center gap-0.5 font-semibold text-primary hover:text-primary-hover underline underline-offset-2"
+                      className="inline-flex items-center gap-0.5 font-semibold text-site-muted-dark hover:text-site-text underline underline-offset-2 ml-2"
                     >
                       Dismiss tip
-                      <ChevronDown className="h-3 w-3 rotate-180" />
                     </button>
                   </p>
                 </div>

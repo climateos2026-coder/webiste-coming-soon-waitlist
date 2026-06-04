@@ -23,7 +23,7 @@ export default function NotFound() {
             </h1>
 
             <p className="text-site-muted text-sm md:text-base mb-8 leading-relaxed">
-              The page you are looking for has either drifted away or never existed in this climate system. Let's get you back on track.
+              The page you are looking for has either drifted away or never existed in this climate system. Let&apos;s get you back on track.
             </p>
 
             <div className="flex justify-center">

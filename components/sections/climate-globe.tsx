@@ -170,9 +170,9 @@ export function ClimateGlobe() {
       // Sort particles by rotated Z index (Painter's Algorithm) for correct 3D depth rendering
       const renderedParticles = particles.map((p) => {
         // Rotate Y
-        let [nx, nz] = rotateY(p.x, p.z, rotationY.current);
+        const [nx, nz] = rotateY(p.x, p.z, rotationY.current);
         // Rotate X
-        let [ny, rz] = rotateX(p.y, nz, rotationX.current);
+        const [ny, rz] = rotateX(p.y, nz, rotationX.current);
 
         return {
           px: nx,
@@ -232,16 +232,16 @@ export function ClimateGlobe() {
         for (let i = 0; i <= steps; i++) {
           const phi = (i / steps) * 2 * Math.PI;
           // Coordinates on tilted flat plane ring
-          let ox = orbitRadius * Math.cos(phi);
-          let oy = 0;
-          let oz = orbitRadius * Math.sin(phi);
+          const ox = orbitRadius * Math.cos(phi);
+          const oy = 0;
+          const oz = orbitRadius * Math.sin(phi);
 
           // Apply tilt around X axis
-          let [ry, rz_tilt] = rotateX(oy, oz, tiltAngle);
+          const [ry, rz_tilt] = rotateX(oy, oz, tiltAngle);
 
           // Apply main Y and X globe rotations
-          let [rx, rz] = rotateY(ox, rz_tilt, rotationY.current);
-          let [ry_final, rz_final] = rotateX(ry, rz, rotationX.current);
+          const [rx, rz] = rotateY(ox, rz_tilt, rotationY.current);
+          const [ry_final, rz_final] = rotateX(ry, rz, rotationX.current);
 
           const screenX = centerX + rx;
           const screenY = centerY + ry_final;
@@ -307,7 +307,7 @@ export function ClimateGlobe() {
 
         // 3D perspective mapping (fade out particles on the back hemisphere)
         const depthPercent = (pz + radius) / (2 * radius); // 0 (back) to 1 (front)
-        let alpha = base.isLand ? 0.35 + depthPercent * 0.65 : 0.2 + depthPercent * 0.8;
+        const alpha = base.isLand ? 0.35 + depthPercent * 0.65 : 0.2 + depthPercent * 0.8;
 
         // Apply scale & draw circle
         ctx.fillStyle = fillStyle;
@@ -328,16 +328,16 @@ export function ClimateGlobe() {
         const tiltAngle = idx % 2 === 0 ? 0.6 : -0.4;
 
         // Calculate beacon's 3D coordinates
-        let ox = orbitRadius * Math.cos(beacon.angle);
-        let oy = 0;
-        let oz = orbitRadius * Math.sin(beacon.angle);
+        const ox = orbitRadius * Math.cos(beacon.angle);
+        const oy = 0;
+        const oz = orbitRadius * Math.sin(beacon.angle);
 
         // Apply tilt
-        let [ry, rz_tilt] = rotateX(oy, oz, tiltAngle);
+        const [ry, rz_tilt] = rotateX(oy, oz, tiltAngle);
 
         // Apply global rotations
-        let [rx, rz] = rotateY(ox, rz_tilt, rotationY.current);
-        let [ry_final, rz_final] = rotateX(ry, rz, rotationX.current);
+        const [rx, rz] = rotateY(ox, rz_tilt, rotationY.current);
+        const [ry_final, rz_final] = rotateX(ry, rz, rotationX.current);
 
         const screenX = centerX + rx;
         const screenY = centerY + ry_final;

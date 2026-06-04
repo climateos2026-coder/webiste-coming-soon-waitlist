@@ -64,7 +64,7 @@ export default function TermsPage() {
               <div>
                 <h2 className="text-xl font-bold text-site-text mb-3">4. Limitation of Liability</h2>
                 <p>
-                  The ClimateOS organizing team is providing the platform, community channels, and resources on an "as-is" basis. Under no circumstances shall organizers, sponsors, or partners be held liable for any direct, indirect, incidental, or consequential damages resulting from your participation in the hackathon, scheduling interactions, or website access.
+                  The ClimateOS organizing team is providing the platform, community channels, and resources on an &quot;as-is&quot; basis. Under no circumstances shall organizers, sponsors, or partners be held liable for any direct, indirect, incidental, or consequential damages resulting from your participation in the hackathon, scheduling interactions, or website access.
                 </p>
               </div>
 

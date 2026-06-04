@@ -6,5 +6,5 @@
     } else {
       document.documentElement.setAttribute('data-theme', 'dark');
     }
-  } catch(e) {}
+  } catch {}
 })();

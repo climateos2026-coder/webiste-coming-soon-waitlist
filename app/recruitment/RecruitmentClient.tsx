@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
@@ -14,17 +14,15 @@ export default function RecruitmentClient() {
   const [mathProblem, setMathProblem] = useState({ num1: 0, num2: 0, result: 0 });
   const [validationError, setValidationError] = useState('');
 
-  // Generate a random math problem when a role is selected
-  useEffect(() => {
-    if (selectedRole) {
-      const num1 = Math.floor(Math.random() * 8) + 2; // 2-9
-      const num2 = Math.floor(Math.random() * 8) + 2; // 2-9
-      setMathProblem({ num1, num2, result: num1 + num2 });
-      setMathAnswer('');
-      setConsentChecked(false);
-      setValidationError('');
-    }
-  }, [selectedRole]);
+  const handleSelectRole = (role: 'core' | 'volunteer') => {
+    const num1 = Math.floor(Math.random() * 8) + 2; // 2-9
+    const num2 = Math.floor(Math.random() * 8) + 2; // 2-9
+    setMathProblem({ num1, num2, result: num1 + num2 });
+    setMathAnswer('');
+    setConsentChecked(false);
+    setValidationError('');
+    setSelectedRole(role);
+  };
 
   const handleVerifyAndRedirect = (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,7 +95,7 @@ export default function RecruitmentClient() {
 
               <div className="mt-12 grid gap-6 md:grid-cols-2">
                 <motion.button
-                  onClick={() => setSelectedRole('core')}
+                  onClick={() => handleSelectRole('core')}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ type: 'spring', delay: 0.4 }}
@@ -124,7 +122,7 @@ export default function RecruitmentClient() {
                 </motion.button>
 
                 <motion.button
-                  onClick={() => setSelectedRole('volunteer')}
+                  onClick={() => handleSelectRole('volunteer')}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ type: 'spring', delay: 0.45 }}
@@ -205,7 +203,7 @@ export default function RecruitmentClient() {
                 </div>
 
                 <p className="text-sm text-site-muted mb-4 leading-relaxed">
-                  To protect our recruitment pipelines and comply with GDPR, India's DPDP Act, and CCPA regulations, please confirm your consent and verify you are human before opening the form.
+                  To protect our recruitment pipelines and comply with GDPR, India&apos;s DPDP Act, and CCPA regulations, please confirm your consent and verify you are human before opening the form.
                 </p>
 
                 <form onSubmit={handleVerifyAndRedirect} className="space-y-4">
