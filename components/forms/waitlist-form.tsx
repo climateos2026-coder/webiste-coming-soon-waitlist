@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
+import isDisposableEmail from 'is-disposable-email';
 
 const inputClass = "h-12 w-full rounded-xl border border-site-border bg-site-card-elevated px-4 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200";
 const textareaClass = "w-full rounded-xl border border-site-border bg-site-card-elevated px-4 py-3 text-site-text placeholder:text-site-muted-dark/50 focus:border-primary focus:outline-none transition-all duration-200";
@@ -26,7 +27,8 @@ const schema = z.object({
     .min(2, 'Name must be at least 2 characters')
     .max(80, 'Name must be at most 80 characters')
     .refine(val => !/[\r\n]/.test(val), 'Name cannot contain line breaks'),
-  email: z.string().email('Invalid email address').max(100, 'Email must be at most 100 characters'),
+  email: z.string().email('Invalid email address').max(100, 'Email must be at most 100 characters')
+    .refine((email) => !isDisposableEmail(email), 'Disposable emails not allowed'),
   country: z.string().max(100, 'Country must be at most 100 characters').optional(),
   role: z.string().max(100, 'Role must be at most 100 characters').optional(),
   trackInterest: z.string().max(50).optional(),

@@ -1,13 +1,15 @@
 import type { NextConfig } from "next";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-let supabaseHostname = "your-project.supabase.co";
+let supabaseHostname: string;
 if (supabaseUrl) {
   try {
     supabaseHostname = new URL(supabaseUrl).hostname;
   } catch {
-    // Fallback to default if URL parsing fails
+    supabaseHostname = '';
   }
+} else {
+  supabaseHostname = '';
 }
 
 const isDev = process.env.NODE_ENV !== 'production';

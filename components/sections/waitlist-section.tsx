@@ -6,6 +6,7 @@ import { ExternalLink, Info, ChevronDown, Loader2 } from 'lucide-react';
 import { WaitlistForm } from '@/components/forms/waitlist-form';
 
 const FOUNDER_TIP_KEY = 'climateos_waitlist_founder_tip_dismissed';
+const DRAFT_KEY = 'climateos_waitlist_draft';
 
 export function WaitlistSection() {
   const [formState, setFormState] = useState<'loading' | 'form' | 'success' | 'error'>('loading');
@@ -33,26 +34,16 @@ export function WaitlistSection() {
     setFormState('form');
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setFormState('form'), 800);
-    return () => clearTimeout(timer);
+  const handleSuccess = useCallback(() => {
+    setFormState('success');
   }, []);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const dismissed = localStorage.getItem(FOUNDER_TIP_KEY);
-    if (!dismissed) {
-      const tipTimer = setTimeout(() => setShowDirectLink(true), 3000);
-      return () => clearTimeout(tipTimer);
-    }
-  }, []);
-
-  const dismissFounderTip = () => {
+  const dismissFounderTip = useCallback(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem(FOUNDER_TIP_KEY, 'true');
     }
     setShowDirectLink(false);
-  };
+  }, []);
 
   return (
     <section id="waitlist" className="relative w-full max-w-7xl mx-auto px-4 pb-28 pt-10 md:px-8 z-10">
