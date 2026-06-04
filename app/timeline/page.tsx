@@ -4,18 +4,21 @@ import { DetailComingSoon } from '@/components/coming-soon/detail-coming-soon';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Timeline",
-  description: "Event timeline for ClimateOS 2026. Key dates including pre-launch, the 48-hour build sprint, judging, and finals.",
+  title: "Timeline — ClimateOS 2026",
+  description: "Complete event timeline for ClimateOS 2026. Check out key dates, pre-launch preparations, the 48-hour climate build sprint, and finals schedule.",
+  alternates: {
+    canonical: '/timeline',
+  },
   openGraph: {
-    title: "ClimateOS 2026 Timeline",
-    description: "Complete schedule for ClimateOS 2026: pre-launch preparation, 48-hour hackathon sprint, judging, and finals.",
+    title: "Timeline — ClimateOS 2026",
+    description: "Complete event timeline for ClimateOS 2026. Check out key dates, pre-launch preparations, the 48-hour climate build sprint, and finals schedule.",
   },
   twitter: {
-    title: "ClimateOS 2026 Timeline",
-    description: "Complete schedule for ClimateOS 2026: pre-launch preparation, 48-hour hackathon sprint, judging, and finals.",
+    title: "Timeline — ClimateOS 2026",
+    description: "Complete event timeline for ClimateOS 2026. Check out key dates, pre-launch preparations, the 48-hour climate build sprint, and finals schedule.",
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };

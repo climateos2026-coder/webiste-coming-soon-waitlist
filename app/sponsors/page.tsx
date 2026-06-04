@@ -4,18 +4,21 @@ import { DetailComingSoon } from '@/components/coming-soon/detail-coming-soon';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Sponsors",
-  description: "Partner with ClimateOS 2026. Sponsor packages for organizations supporting open-source climate tech solutions.",
+  title: "Sponsors — ClimateOS 2026",
+  description: "Partner with ClimateOS 2026. Explore sponsor packages for organizations supporting open-source climate tech solutions built by up to 500 global builders.",
+  alternates: {
+    canonical: '/sponsors',
+  },
   openGraph: {
-    title: "ClimateOS 2026 Sponsors",
-    description: "Partner with ClimateOS 2026 to support open-source climate solutions built by 500 global builders.",
+    title: "Sponsors — ClimateOS 2026",
+    description: "Partner with ClimateOS 2026. Explore sponsor packages for organizations supporting open-source climate tech solutions built by up to 500 global builders.",
   },
   twitter: {
-    title: "ClimateOS 2026 Sponsors",
-    description: "Partner with ClimateOS 2026 to support open-source climate solutions built by 500 global builders.",
+    title: "Sponsors — ClimateOS 2026",
+    description: "Partner with ClimateOS 2026. Explore sponsor packages for organizations supporting open-source climate tech solutions built by up to 500 global builders.",
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };

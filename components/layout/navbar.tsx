@@ -76,13 +76,13 @@ export function Navbar() {
           </button>
 
           <Link
-            href="/tracks"
+            href="/#waitlist"
             className="hidden sm:inline-flex items-center h-10 px-5 rounded-xl 
                        bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover 
                        text-white text-sm font-bold shadow-[0_4px_14px_rgba(11,110,90,0.15)]
                        transition-all hover:-translate-y-0.5 active:translate-y-0"
           >
-            Explore Tracks →
+            Join Waitlist
           </Link>
 
           <button
@@ -110,12 +110,12 @@ export function Navbar() {
             </Link>
           ))}
           <Link
-            href="/tracks"
+            href="/#waitlist"
             className="mt-4 inline-flex items-center justify-center h-14 px-8 
                        rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white font-bold text-lg shadow-md"
             onClick={() => setOpen(false)}
           >
-            Explore Tracks →
+            Join Waitlist
           </Link>
         </div>
       )}

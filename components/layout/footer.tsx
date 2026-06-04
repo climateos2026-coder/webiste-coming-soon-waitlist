@@ -24,7 +24,7 @@ export function Footer() {
               Global online climate-tech hackathon
             </p>
             <p className="text-site-muted-dark text-xs mt-2 transition-colors duration-300">
-              October 10–12, 2026 · Online · Free
+              Online · Free
             </p>
           </div>
 
@@ -48,9 +48,17 @@ export function Footer() {
         </div>
 
         <div className="border-t border-site-border mt-8 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-site-muted-dark transition-colors duration-300">
-            © 2026 ClimateOS. All rights reserved.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-site-muted-dark">
+            <span>© 2026 ClimateOS. All rights reserved.</span>
+            <span className="hidden sm:inline">·</span>
+            <Link href="/privacy" className="hover:text-primary transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="hidden sm:inline">·</span>
+            <Link href="/terms" className="hover:text-primary transition-colors">
+              Terms of Service
+            </Link>
+          </div>
           <Link href="/faq" className="text-xs text-site-muted-dark hover:text-primary transition-colors">
             Questions and updates
           </Link>

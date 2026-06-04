@@ -10,7 +10,7 @@ export function WaitlistSection() {
   const directUrl = 'https://forms.gle/BE377GYgunCKDSzm8';
 
   return (
-    <section className="relative w-full max-w-7xl mx-auto px-4 pb-28 pt-10 md:px-8 z-10">
+    <section id="waitlist" className="relative w-full max-w-7xl mx-auto px-4 pb-28 pt-10 md:px-8 z-10">
       <div className="flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,6 +68,7 @@ export function WaitlistSection() {
               height="800"
               className="relative z-10 w-full border-0 block"
               title="ClimateOS 2026 Waitlist Form"
+              sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
               onLoad={() => setIframeLoading(false)}
             >
               Loading Waitlist Form…

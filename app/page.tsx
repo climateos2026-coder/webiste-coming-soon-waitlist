@@ -5,15 +5,18 @@ import { WaitlistSection } from '@/components/sections/waitlist-section';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "ClimateOS 2026 is a global, fully-online climate tech hackathon. Join 500 builders October 10-12, 2026 to create deployable open-source solutions for urgent climate challenges.",
+  title: "ClimateOS 2026 — Global Climate Tech Hackathon",
+  description: "ClimateOS 2026 is a global, fully-online climate tech hackathon. Join up to 500 builders October 10-12, 2026 to create deployable open-source solutions for urgent climate challenges.",
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: "ClimateOS 2026 — Global Climate Tech Hackathon",
-    description: "ClimateOS 2026 is a global, fully-online climate tech hackathon. Join 500 builders October 10-12, 2026 to create deployable open-source solutions for urgent climate challenges.",
+    description: "ClimateOS 2026 is a global, fully-online climate tech hackathon. Join up to 500 builders October 10-12, 2026 to create deployable open-source solutions for urgent climate challenges.",
   },
   twitter: {
     title: "ClimateOS 2026 — Global Climate Tech Hackathon",
-    description: "ClimateOS 2026 is a global, fully-online climate tech hackathon. Join 500 builders October 10-12, 2026 to create deployable open-source solutions for urgent climate challenges.",
+    description: "ClimateOS 2026 is a global, fully-online climate tech hackathon. Join up to 500 builders October 10-12, 2026 to create deployable open-source solutions for urgent climate challenges.",
   },
 };
 
