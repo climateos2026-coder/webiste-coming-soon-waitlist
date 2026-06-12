@@ -60,19 +60,51 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { headers } from 'next/headers';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
+
+  const eventStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "ClimateOS 2026 Hackathon",
+    "startDate": "2026-10-10T00:00:00Z",
+    "endDate": "2026-10-12T23:59:59Z",
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "VirtualLocation",
+      "url": CANONICAL_URL
+    },
+    "image": [
+      `${CANONICAL_URL}/og-default.png`
+    ],
+    "description": "48 hours. Up to 500 builders. One planet. Join the global online hackathon building open-source climate tech — October 10-12, 2026.",
+    "organizer": {
+      "@type": "Organization",
+      "name": "ClimateOS",
+      "url": CANONICAL_URL
+    }
+  };
+
   return (
     <html lang="en" className={`h-full ${instrumentSans.variable} ${barlowCondensed.variable} ${jetbrainsMono.variable}`} data-theme="dark">
       <head>
-        {/* Runs synchronously before paint — prevents theme flash */}
         <script
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='light'||t==='dark'?t:'dark');}catch(e){}})();`
           }}
+        />
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventStructuredData) }}
         />
       </head>
       <body className="min-h-full flex flex-col antialiased" style={{ fontFamily: 'var(--font-body)' }}>
