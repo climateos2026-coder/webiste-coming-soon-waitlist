@@ -24,8 +24,10 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <ClimateComingSoon />
-      <WaitlistSection />
+      <main id="main-content">
+        <ClimateComingSoon />
+        <WaitlistSection />
+      </main>
       <Footer />
     </>
   );

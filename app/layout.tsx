@@ -1,6 +1,26 @@
 import type { Metadata } from "next";
+import { Instrument_Sans, Barlow_Condensed, JetBrains_Mono } from 'next/font/google';
 import "./globals.css";
 import { PlausibleAnalytics } from '@/components/analytics/plausible';
+
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-instrument-sans',
+});
+
+const barlowCondensed = Barlow_Condensed({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-barlow-condensed',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+});
 
 // Fallback to canonical production URL for metadata Base to avoid typo preview deployment leaks
 const CANONICAL_URL = 'https://climateos2026.vercel.app';
@@ -46,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full" data-theme="dark">
+    <html lang="en" className={`h-full ${instrumentSans.variable} ${barlowCondensed.variable} ${jetbrainsMono.variable}`} data-theme="dark">
       <head>
         {/* Runs synchronously before paint — prevents theme flash */}
         <script
@@ -60,6 +80,17 @@ export default function RootLayout({
           Skip to content
         </a>
         <PlausibleAnalytics />
+        <noscript>
+          <div style={{ padding: '2rem', background: '#07110E', color: '#F2F7F4', textAlign: 'center', fontFamily: 'sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>ClimateOS 2026</h1>
+            <p>JavaScript is required to view this site.</p>
+            <p style={{ marginTop: '1rem' }}>
+              <a href="https://forms.gle/y5aZGLeeGJhb94L28" style={{ color: '#E07B39', textDecoration: 'underline' }}>
+                Join our waitlist on Google Forms
+              </a>
+            </p>
+          </div>
+        </noscript>
         {children}
       </body>
     </html>

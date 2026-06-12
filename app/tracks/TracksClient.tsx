@@ -10,7 +10,7 @@ export default function TracksClient() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
+      <main id="main-content" className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,var(--glow-1),transparent_35%),radial-gradient(circle_at_80%_10%,var(--glow-2),transparent_30%),radial-gradient(circle_at_50%_50%,var(--glow-3),transparent_40%)] pointer-events-none transition-colors duration-300" />
         
         <section className="relative flex-grow flex items-center justify-center mx-auto max-w-4xl w-full px-4 py-16 md:px-8 z-10">
@@ -105,8 +105,8 @@ export default function TracksClient() {
           </motion.div>
         </section>
         
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

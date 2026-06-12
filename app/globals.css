@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 
 @import "tailwindcss";
 
@@ -34,10 +34,10 @@
 
 /* ─── Root / shared tokens ─────────────────────────────────────────────────── */
 :root {
-  --font-display: 'Cabinet Grotesk', 'Instrument Sans', sans-serif;
-  --font-body:    'Instrument Sans', 'DM Sans', sans-serif;
-  --font-stat:    'Barlow Condensed', 'Instrument Sans', sans-serif;
-  --font-mono:    'JetBrains Mono', monospace;
+  --font-display: 'Cabinet Grotesk', var(--font-instrument-sans), sans-serif;
+  --font-body:    var(--font-instrument-sans), 'DM Sans', sans-serif;
+  --font-stat:    var(--font-barlow-condensed), var(--font-instrument-sans), sans-serif;
+  --font-mono-custom: var(--font-jetbrains-mono), monospace;
 
   /* Brand Colors */
   --primary:         #0B6E5A;
@@ -136,6 +136,11 @@
   --color-glow-2:            var(--glow-2);
   --color-glow-3:            var(--glow-3);
   --color-glow-4:            var(--glow-4);
+
+  --font-display:            var(--font-display);
+  --font-body:               var(--font-body);
+  --font-stat:               var(--font-stat);
+  --font-mono:               var(--font-mono-custom);
 }
 
 /* ─── Base body ─────────────────────────────────────────────────────────────── */
@@ -208,11 +213,6 @@ body::after {
   background-size: 100% 4px;
   transition: opacity 0.35s ease;
 }
-
-/* ─── Utility: font-display ─────────────────────────────────────────────────── */
-.font-display { font-family: var(--font-display); }
-.font-stat    { font-family: var(--font-stat); }
-.font-mono    { font-family: var(--font-mono); }
 
 /* ─── Ticker (news-ticker) ──────────────────────────────────────────────────── */
 .ticker {

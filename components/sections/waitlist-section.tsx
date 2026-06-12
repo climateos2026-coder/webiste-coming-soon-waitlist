@@ -13,11 +13,11 @@ export function WaitlistSection() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const dismissed = localStorage.getItem(FOUNDER_TIP_KEY);
-    if (!dismissed && !showDirectLink) {
+    if (!dismissed) {
       const tipTimer = setTimeout(() => setShowDirectLink(true), 3000);
       return () => clearTimeout(tipTimer);
     }
-  }, [showDirectLink]);
+  }, []);
 
   const dismissFounderTip = useCallback(() => {
     if (typeof window !== 'undefined') {

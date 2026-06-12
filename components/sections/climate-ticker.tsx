@@ -18,8 +18,8 @@ export function ClimateTicker() {
   const allStats = [...STATS, ...STATS];
 
   return (
-    <div className="bg-primary-soft/10 border-y border-site-border py-3 overflow-hidden" aria-live="polite" role="marquee">
-      <div className="flex animate-ticker whitespace-nowrap">
+    <div className="bg-primary-soft/10 border-y border-site-border py-3 overflow-hidden" aria-hidden="true">
+      <div className="flex ticker whitespace-nowrap">
         {allStats.map((stat, index) => (
           <span
             key={`${stat.id}-${index}`}

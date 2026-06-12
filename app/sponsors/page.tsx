@@ -27,7 +27,7 @@ export default function SponsorsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-site-bg pt-16 transition-colors duration-300">
+      <main id="main-content" className="min-h-screen bg-site-bg pt-16 transition-colors duration-300">
         <DetailComingSoon
           badge="Sponsors coming soon"
           title="Sponsorship page is being prepared"

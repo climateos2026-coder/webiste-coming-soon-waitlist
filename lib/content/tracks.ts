@@ -20,17 +20,21 @@ export interface TrackContent extends TrackMeta {
 const tracksDir = path.join(process.cwd(), 'content', 'tracks');
 
 export async function getAllTracks(): Promise<TrackMeta[]> {
-  const files = fs.readdirSync(tracksDir);
-  const tracks = files
-    .filter(f => f.endsWith('.mdx'))
-    .map(f => {
-      const fileContent = fs.readFileSync(path.join(tracksDir, f), 'utf-8');
-      const { data } = matter(fileContent);
-      return data as TrackMeta;
-    })
-    .sort((a, b) => a.slug.localeCompare(b.slug));
-  
-  return tracks;
+  try {
+    const files = fs.readdirSync(tracksDir);
+    const tracks = files
+      .filter(f => f.endsWith('.mdx'))
+      .map(f => {
+        const fileContent = fs.readFileSync(path.join(tracksDir, f), 'utf-8');
+        const { data } = matter(fileContent);
+        return data as TrackMeta;
+      })
+      .sort((a, b) => a.slug.localeCompare(b.slug));
+    
+    return tracks;
+  } catch {
+    return [];
+  }
 }
 
 export async function getTrackBySlug(slug: string): Promise<TrackContent | null> {

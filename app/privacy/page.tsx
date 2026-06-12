@@ -16,7 +16,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
+      <main id="main-content" className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,var(--glow-3),transparent_35%),radial-gradient(circle_at_80%_80%,var(--glow-1),transparent_35%)] pointer-events-none transition-colors duration-300" />
         
         <section className="relative mx-auto max-w-4xl w-full px-4 py-16 md:px-8 z-10">
@@ -109,8 +109,8 @@ export default function PrivacyPage() {
           </div>
         </section>
         
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

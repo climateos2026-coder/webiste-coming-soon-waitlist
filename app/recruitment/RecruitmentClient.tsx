@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
@@ -23,6 +23,15 @@ export default function RecruitmentClient() {
     setValidationError('');
     setSelectedRole(role);
   };
+
+  useEffect(() => {
+    if (!selectedRole) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedRole(null);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [selectedRole]);
 
   const handleVerifyAndRedirect = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +58,7 @@ export default function RecruitmentClient() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
+      <main id="main-content" className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
         <section className="relative overflow-hidden flex-grow flex items-center justify-center">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,var(--glow-3),transparent_35%),radial-gradient(circle_at_80%_15%,var(--glow-1),transparent_35%)] transition-colors duration-300" />
           
@@ -181,6 +190,9 @@ export default function RecruitmentClient() {
 
               {/* Modal Container */}
               <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-title"
                 initial={{ opacity: 0, scale: 0.95, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -197,7 +209,7 @@ export default function RecruitmentClient() {
 
                 <div className="flex items-center gap-2 mb-4">
                   <ShieldCheck className="h-5 w-5 text-primary" />
-                  <h3 className="font-display font-bold text-lg text-site-text">
+                  <h3 id="modal-title" className="font-display font-bold text-lg text-site-text">
                     Consent & Security Verification
                   </h3>
                 </div>
@@ -267,8 +279,8 @@ export default function RecruitmentClient() {
           )}
         </AnimatePresence>
 
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

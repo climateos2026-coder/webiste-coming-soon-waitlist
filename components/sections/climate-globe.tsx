@@ -423,6 +423,41 @@ export function ClimateGlobe() {
     isDragging.current = false;
   };
 
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    isDragging.current = true;
+    startMouseX.current = e.touches[0].clientX;
+    startMouseY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    mousePos.current = {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top,
+    };
+
+    if (!isDragging.current) return;
+
+    const deltaX = e.touches[0].clientX - startMouseX.current;
+    const deltaY = e.touches[0].clientY - startMouseY.current;
+
+    rotationY.current += deltaX * 0.006;
+    rotationX.current += deltaY * 0.006;
+
+    dragVelocityY.current = deltaX * 0.003;
+    dragVelocityX.current = deltaY * 0.003;
+
+    startMouseX.current = e.touches[0].clientX;
+    startMouseY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = () => {
+    isDragging.current = false;
+  };
+
   return (
     <div className="relative flex items-center justify-center w-full h-full group">
       {/* Outer subtle glowing tech rings */}
@@ -439,7 +474,12 @@ export function ClimateGlobe() {
           handleMouseUpOrLeave();
           mousePos.current = { x: -1000, y: -1000 };
         }}
-        className="w-[420px] h-[420px] cursor-grab active:cursor-grabbing z-10 transition-transform duration-300"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
+        aria-hidden="true"
+        className="w-[420px] h-[420px] cursor-grab active:cursor-grabbing z-10 transition-transform duration-300 touch-none"
       />
       
       {/* Dynamic light-reflection aura overlay */}

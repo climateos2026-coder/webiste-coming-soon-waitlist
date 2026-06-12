@@ -43,7 +43,7 @@ export function Footer() {
 
           <div>
             <h3 className="font-display font-bold text-site-text mb-4 transition-colors duration-300">Contact</h3>
-            <p className="text-sm text-site-muted transition-colors duration-300">climateos26@gmail.com</p>
+            <a href="mailto:climateos26@gmail.com" className="text-sm text-site-muted hover:text-primary transition-colors duration-300">climateos26@gmail.com</a>
           </div>
         </div>
 

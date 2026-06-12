@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
 export function ParticipantCounter() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const abortController = new AbortController();
+    const supabase = createClient();
 
     const fetchCount = async () => {
       try {
-        const supabase = createClient();
         const { count } = await supabase
           .from('waitlist')
           .select('*', { count: 'exact', head: true });
@@ -21,7 +21,7 @@ export function ParticipantCounter() {
         }
       } catch {
         if (!abortController.signal.aborted) {
-          setCount(1247);
+          setCount(null);
         }
       } finally {
         if (!abortController.signal.aborted) {
@@ -32,11 +32,10 @@ export function ParticipantCounter() {
 
     fetchCount();
 
-    const supabase = createClient();
     const channel = supabase
       .channel('waitlist-counter')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'waitlist' }, () => {
-        setCount(c => c + 1);
+        setCount(c => (c === null ? 1 : c + 1));
       })
       .subscribe();
 
@@ -48,6 +47,10 @@ export function ParticipantCounter() {
 
   if (loading) {
     return <span className="font-stat font-bold">...</span>;
+  }
+
+  if (count === null) {
+    return null;
   }
 
   return (

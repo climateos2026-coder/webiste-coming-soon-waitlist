@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
@@ -97,7 +97,7 @@ const FAQ_SECTIONS = [
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const contentId = `faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`;
+  const contentId = React.useId();
 
   return (
     <div className="rounded-xl border border-site-border bg-site-card-elevated overflow-hidden transition-all duration-300 hover:border-primary/20 hover:shadow-md hover:shadow-primary/5">
@@ -140,7 +140,7 @@ export default function FAQClient() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-site-bg pt-16 transition-colors duration-300">
+      <main id="main-content" className="min-h-screen bg-site-bg pt-16 transition-colors duration-300">
         <section className="relative overflow-hidden bg-transparent">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_15%,var(--glow-3),transparent_30%),radial-gradient(circle_at_75%_8%,var(--glow-1),transparent_28%)] transition-colors duration-300" />
           

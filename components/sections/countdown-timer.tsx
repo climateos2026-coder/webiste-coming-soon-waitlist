@@ -62,6 +62,12 @@ export function CountdownTimer() {
     userTZ,
     "MMM d, h:mm aa zzz"
   );
+  
+  const utcTime = formatInTimeZone(
+    phase.target,
+    'UTC',
+    "HH:mm zzz"
+  );
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 border border-primary/20 rounded-2xl bg-site-card shadow-lg shadow-primary/5 animate-pulse-glow">
@@ -78,7 +84,7 @@ export function CountdownTimer() {
         <Digit value={time.seconds} label="Sec" />
       </div>
       <p className="text-site-muted text-xs">
-        ⏰ Your local time: <span className="text-primary font-semibold font-mono">{localTime}</span> (19:00 UTC)
+        ⏰ Your local time: <span className="text-primary font-semibold font-mono">{localTime}</span> ({utcTime})
       </p>
     </div>
   );
