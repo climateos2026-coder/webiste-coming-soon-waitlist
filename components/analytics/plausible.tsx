@@ -11,7 +11,11 @@ export function PlausibleAnalytics() {
     const script = document.createElement('script');
     script.defer = true;
     script.setAttribute('data-domain', process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN);
-    script.src = process.env.NEXT_PUBLIC_PLAUSIBLE_URL || 'https://plausible.io/js/script.js';
+    const scriptUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL || 'https://plausible.io/js/script.js';
+    script.src = scriptUrl;
+    if (scriptUrl === 'https://plausible.io/js/script.js') {
+      script.integrity = 'sha384-zT1ce5bjM8JKtp1jP2OrIdAJbEUfNIUJ9FxzvMHDFBHmIU+cHYwXVs1xBoRORibS';
+    }
     script.crossOrigin = 'anonymous';
     document.head.appendChild(script);
 

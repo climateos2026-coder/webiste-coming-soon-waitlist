@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import createBundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = createBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' });
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 let supabaseHostname: string = "";
@@ -9,21 +12,6 @@ if (supabaseUrl) {
     supabaseHostname = "";
   }
 }
-
-const isDev = process.env.NODE_ENV !== 'production';
-
-const supabaseConnect = supabaseHostname ? `https://${supabaseHostname}` : "";
-
-const cspHeader = `
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} https://plausible.io;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  font-src 'self' data: https://fonts.gstatic.com;
-  img-src 'self' data: https:;
-  connect-src 'self' https://api.brevo.com https://plausible.io ${supabaseConnect};
-  frame-src 'self' https://docs.google.com https://forms.gle;
-  frame-ancestors 'none';
-`.replace(/\s{2,}/g, ' ').trim();
 
 const remotePatterns = [
   {
@@ -53,10 +41,6 @@ const nextConfig: NextConfig = {
         source: '/:path*',
         headers: [
           {
-            key: 'Content-Security-Policy',
-            value: cspHeader,
-          },
-          {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
@@ -82,4 +66,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

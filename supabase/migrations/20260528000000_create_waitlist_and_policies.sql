@@ -49,9 +49,9 @@ CREATE POLICY "Restrict DELETE for anon" ON public.waitlist
     TO anon
     USING (false);
 
--- Allow full administrative access to authenticated accounts (e.g. backend operations using service role)
+-- Allow full administrative access to service role accounts (e.g. backend operations using service role)
 CREATE POLICY "Allow authenticated service role full access" ON public.waitlist
     FOR ALL
-    TO authenticated
+    TO service_role
     USING (true)
     WITH CHECK (true);

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { clsx } from 'clsx';
+import { cn } from '@/lib/utils';
 
 type BadgeVariant = 'default' | 'track' | 'open' | 'closed' | 'soon' | 'success' | 'warning' | 'error';
 
@@ -23,7 +23,7 @@ export function Badge({ children, variant = 'default', color }: BadgeProps) {
   
   return (
     <span 
-      className={clsx(
+      className={cn(
         'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide',
         variantClasses[variant]
       )}

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
+import { AuraBackground } from '@/components/layout/aura-background';
 import { Compass, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
@@ -8,7 +9,7 @@ export default function NotFound() {
     <>
       <Navbar />
       <main id="main-content" className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,var(--glow-1),transparent_35%),radial-gradient(circle_at_80%_80%,var(--glow-2),transparent_35%)] pointer-events-none transition-colors duration-300" />
+        <AuraBackground variant="primary" />
         
         <section className="relative flex-grow flex items-center justify-center mx-auto max-w-xl w-full px-4 py-16 z-10">
           <div className="w-full rounded-3xl border border-site-border bg-site-card p-8 md:p-12 text-center backdrop-blur-xl shadow-2xl relative overflow-hidden group transition-all duration-300 hover:border-primary/20">

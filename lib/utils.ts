@@ -13,24 +13,3 @@ export function getTimezone(): string {
 export function cn(...classes: (string | undefined | false)[]) {
   return twMerge(classes.filter(Boolean).join(' '));
 }
-
-export function formatDateCompact(date: Date, timezone: string): string {
-  return formatInTimeZone(date, timezone, 'MMM d');
-}
-
-export function formatTime(date: Date, timezone: string): string {
-  return formatInTimeZone(date, timezone, 'p zzz');
-}
-
-export function formatUTC(date: Date): string {
-  return formatInTimeZone(date, 'UTC', 'HH:mm');
-}
-
-export function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}

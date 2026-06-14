@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
 
 export function ParticipantCounter() {
   const [count, setCount] = useState<number | null>(null);
@@ -9,15 +8,20 @@ export function ParticipantCounter() {
 
   useEffect(() => {
     const abortController = new AbortController();
-    const supabase = createClient();
 
     const fetchCount = async () => {
       try {
-        const { count } = await supabase
-          .from('waitlist')
-          .select('*', { count: 'exact', head: true });
+        const response = await fetch('/api/waitlist-count', {
+          signal: abortController.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error('Unable to load participant count');
+        }
+
+        const data = await response.json();
         if (!abortController.signal.aborted) {
-          setCount(count ?? 0);
+          setCount(data.count);
         }
       } catch {
         if (!abortController.signal.aborted) {
@@ -32,17 +36,7 @@ export function ParticipantCounter() {
 
     fetchCount();
 
-    const channel = supabase
-      .channel('waitlist-counter')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'waitlist' }, () => {
-        setCount(c => (c === null ? 1 : c + 1));
-      })
-      .subscribe();
-
-    return () => {
-      abortController.abort();
-      supabase.removeChannel(channel);
-    };
+    return () => abortController.abort();
   }, []);
 
   if (loading) {

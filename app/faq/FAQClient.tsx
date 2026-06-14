@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
+import { AuraBackground } from '@/components/layout/aura-background';
 
 const FAQ_SECTIONS = [
   {
@@ -142,7 +143,7 @@ export default function FAQClient() {
       <Navbar />
       <main id="main-content" className="min-h-screen bg-site-bg pt-16 transition-colors duration-300">
         <section className="relative overflow-hidden bg-transparent">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_15%,var(--glow-3),transparent_30%),radial-gradient(circle_at_75%_8%,var(--glow-1),transparent_28%)] transition-colors duration-300" />
+          <AuraBackground variant="subtle" />
           
           <div className="relative mx-auto max-w-6xl px-4 py-20">
             <motion.div

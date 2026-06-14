@@ -22,8 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 });
 
-// Fallback to canonical production URL for metadata Base to avoid typo preview deployment leaks
-const CANONICAL_URL = 'https://climateos2026.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://climateos2026.vercel.app';
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | ClimateOS 2026",
   },
   description: "48 hours. Up to 500 builders. One planet. Join the global online hackathon building open-source climate tech — October 10-12, 2026.",
-  metadataBase: new URL(CANONICAL_URL),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: '/',
   },
@@ -43,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ClimateOS 2026",
     description: "48 hours. Up to 500 builders. One planet. Join the global online hackathon building open-source climate tech — October 10-12, 2026.",
-    url: CANONICAL_URL,
+    url: SITE_URL,
     siteName: "ClimateOS 2026",
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -79,17 +78,26 @@ export default async function RootLayout({
     "eventStatus": "https://schema.org/EventScheduled",
     "location": {
       "@type": "VirtualLocation",
-      "url": CANONICAL_URL
+      "url": SITE_URL
     },
     "image": [
-      `${CANONICAL_URL}/og-default.png`
+      `${SITE_URL}/og-default.png`
     ],
     "description": "48 hours. Up to 500 builders. One planet. Join the global online hackathon building open-source climate tech — October 10-12, 2026.",
     "organizer": {
       "@type": "Organization",
       "name": "ClimateOS",
-      "url": CANONICAL_URL
+      "url": SITE_URL
     }
+  };
+
+  const organizationStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ClimateOS",
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/climateos-logo.webp`,
+    "sameAs": ["https://twitter.com/ClimateOSHack"]
   };
 
   return (
@@ -105,6 +113,11 @@ export default async function RootLayout({
           type="application/ld+json"
           nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(eventStructuredData) }}
+        />
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationStructuredData) }}
         />
       </head>
       <body className="min-h-full flex flex-col antialiased" style={{ fontFamily: 'var(--font-body)' }}>

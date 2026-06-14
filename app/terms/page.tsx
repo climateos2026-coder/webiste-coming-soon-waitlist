@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
+import { AuraBackground } from '@/components/layout/aura-background';
 import { FileText, ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function TermsPage() {
     <>
       <Navbar />
       <main id="main-content" className="min-h-screen bg-site-bg pt-20 transition-colors duration-300 relative flex flex-col justify-between">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,var(--glow-3),transparent_35%),radial-gradient(circle_at_80%_80%,var(--glow-1),transparent_35%)] pointer-events-none transition-colors duration-300" />
+        <AuraBackground variant="accent" />
         
         <section className="relative mx-auto max-w-4xl w-full px-4 py-16 md:px-8 z-10">
           <div className="rounded-3xl border border-site-border bg-site-card p-8 md:p-12 shadow-2xl backdrop-blur-xl transition-all duration-300">

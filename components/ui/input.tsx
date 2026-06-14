@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from 'react';
-import { clsx } from 'clsx';
+import { cn } from '@/lib/utils';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -17,7 +17,7 @@ export function Input({ label, error, helperText, className, ...props }: InputPr
         </label>
       )}
       <input
-        className={clsx(
+        className={cn(
           'w-full h-11 px-4 rounded-md bg-site-card-elevated border transition-all duration-200',
           error ? 'border-error/80 focus:border-error' : 'border-site-border focus:border-primary/80',
           'text-site-text placeholder:text-site-muted-dark/60',

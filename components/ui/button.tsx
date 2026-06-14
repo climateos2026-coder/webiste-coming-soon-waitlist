@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
-import { clsx } from 'clsx';
+import { cn } from '@/lib/utils';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
@@ -36,7 +36,7 @@ export function Button({
 
   return (
     <button
-      className={clsx(baseClasses, variantClasses[variant], sizeClasses[size], className)}
+      className={cn(baseClasses, variantClasses[variant], sizeClasses[size], className)}
       disabled={loading}
       {...props}
     >

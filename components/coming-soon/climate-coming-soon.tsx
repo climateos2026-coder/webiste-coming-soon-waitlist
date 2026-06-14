@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { AuraBackground } from '@/components/layout/aura-background';
 import { ClimateGlobe } from '@/components/sections/climate-globe';
 
 const typedWords = ['planetary resilience', 'climate intelligence', 'deployable impact', 'decentralized energy', 'urban heat relief'];
@@ -37,7 +38,7 @@ export function ClimateComingSoon() {
   return (
     <main className="relative overflow-hidden bg-site-bg text-site-text transition-colors duration-300">
       {/* Dynamic theme-adapting radial background aura */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,var(--glow-1),transparent_36%),radial-gradient(circle_at_80%_10%,var(--glow-2),transparent_30%),radial-gradient(circle_at_45%_78%,var(--glow-3),transparent_40%),radial-gradient(circle_at_70%_65%,var(--glow-4),transparent_36%)] transition-colors duration-300" />
+      <AuraBackground variant="mixed" />
       <div className="pointer-events-none absolute inset-0 opacity-40 dark:opacity-75 [background:linear-gradient(120deg,transparent_30%,var(--border-default)_45%,transparent_60%)] bg-[length:250%_250%] animate-[aurora_16s_ease-in-out_infinite] transition-colors duration-300" />
 
       <section className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-4 pb-20 pt-28 md:px-8">

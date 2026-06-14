@@ -1,5 +1,5 @@
 import { TextareaHTMLAttributes } from 'react';
-import { clsx } from 'clsx';
+import { cn } from '@/lib/utils';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -17,7 +17,7 @@ export function Textarea({ label, error, helperText, className, ...props }: Text
         </label>
       )}
       <textarea
-        className={clsx(
+        className={cn(
           'w-full min-h-20 px-4 py-2 rounded-md bg-site-card-elevated border transition-all duration-200',
           error ? 'border-error/80 focus:border-error' : 'border-site-border focus:border-primary/80',
           'text-site-text placeholder:text-site-muted-dark/60',

@@ -70,17 +70,21 @@ export function ClimateGlobe() {
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
-      // Support high DPI screens
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      width = canvas.width;
-      height = canvas.height;
-      ctx.scale(dpr, dpr);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    let resizeFrame = 0;
+    const handleResize = () => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(resizeCanvas);
+    };
+    window.addEventListener('resize', handleResize);
 
     // Generate Globe Particles (Spherical distribution)
     const particles: Particle[] = [];
@@ -146,8 +150,8 @@ export function ClimateGlobe() {
     // Main render loop
     const render = () => {
       const isDark = theme === 'dark';
-      const cssWidth = width / (window.devicePixelRatio || 1);
-      const cssHeight = height / (window.devicePixelRatio || 1);
+      const cssWidth = width;
+      const cssHeight = height;
       const centerX = cssWidth / 2;
       const centerY = cssHeight / 2;
 
@@ -378,9 +382,20 @@ export function ClimateGlobe() {
 
     render();
 
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(resizeFrame);
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, [theme]);
 
@@ -456,6 +471,7 @@ export function ClimateGlobe() {
 
   const handleTouchEnd = () => {
     isDragging.current = false;
+    mousePos.current = { x: -1000, y: -1000 };
   };
 
   return (

@@ -48,5 +48,5 @@ app/              # Next.js App Router pages
 components/       # Reusable UI components
 lib/              # Utilities and API clients
 content/          # MDX content files
-types/            # TypeScript definitions
+types.d.ts        # Ambient TypeScript declarations
 ```

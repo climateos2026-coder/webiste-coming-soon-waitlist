@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Info, Loader2 } from 'lucide-react';
 
 const FOUNDER_TIP_KEY = 'climateos_waitlist_founder_tip_dismissed';
+const REGISTRATION_FORM_URL = process.env.NEXT_PUBLIC_REGISTRATION_FORM_URL || 'https://docs.google.com/forms/d/e/1FAIpQLSe-KdYY0OvG7T7hMmJ814H_Ut6_IT-T1f2lTlqYEuZe-zT63Q/viewform?embedded=true';
+const DIRECT_FORM_URL = process.env.NEXT_PUBLIC_REGISTRATION_FORM_URL || 'https://forms.gle/4derjc3mE76gHZaq5';
 
 export function WaitlistSection() {
   const [iframeLoading, setIframeLoading] = useState(true);
@@ -17,6 +19,15 @@ export function WaitlistSection() {
       const tipTimer = setTimeout(() => setShowDirectLink(true), 3000);
       return () => clearTimeout(tipTimer);
     }
+  }, []);
+
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      setIframeLoading(false);
+      setShowDirectLink(true);
+    }, 15000);
+
+    return () => clearTimeout(fallbackTimer);
   }, []);
 
   const dismissFounderTip = useCallback(() => {
@@ -79,7 +90,7 @@ export function WaitlistSection() {
             </AnimatePresence>
 
             <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLSe-KdYY0OvG7T7hMmJ814H_Ut6_IT-T1f2lTlqYEuZe-zT63Q/viewform?embedded=true"
+              src={REGISTRATION_FORM_URL}
               width="100%"
               height="720"
               className="border-0 w-full z-10 bg-transparent rounded-t-3xl"
@@ -89,6 +100,23 @@ export function WaitlistSection() {
               Loading…
             </iframe>
           </div>
+
+          {showDirectLink && (
+            <div className="border-t border-site-border px-6 py-4 bg-site-card-elevated/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+              <span className="text-xs text-site-muted-dark">
+                Having trouble loading the form? Open it directly in a new tab.
+              </span>
+              <a
+                href={DIRECT_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-site-border bg-site-card hover:bg-site-card-elevated px-3 py-1.5 text-xs font-semibold text-primary hover:text-primary-hover transition-all hover:scale-[1.02]"
+              >
+                Open Registration Form
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          )}
 
           <div className="border-t border-site-border px-6 py-4 bg-site-card-elevated/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <span className="text-xs text-site-muted-dark">
@@ -118,11 +146,11 @@ export function WaitlistSection() {
                   <Info className="h-5 w-5 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-primary">Founder Tip</p>
+                  <p className="text-sm font-semibold text-primary">Registration fallback</p>
                   <p className="mt-1 text-xs text-site-muted leading-relaxed">
-                    Prefer to open the form directly in Google Forms?{' '}
+                    If a privacy extension, firewall, or browser setting blocks the embedded form, use the direct link:{' '}
                     <a
-                      href="https://forms.gle/4derjc3mE76gHZaq5"
+                      href={DIRECT_FORM_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-0.5 font-semibold text-primary hover:text-primary-hover underline underline-offset-2 mr-2"

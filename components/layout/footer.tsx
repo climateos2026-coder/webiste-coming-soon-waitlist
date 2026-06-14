@@ -19,12 +19,20 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
             <Link href="/" className="inline-block hover:opacity-85 transition-opacity">
-              <Image
-                src="/climateos-logo.webp"
-                alt="ClimateOS 2026"
-                width={200}
-                height={32}
-              />
+              <div className="relative w-[200px] h-[32px]">
+                <Image
+                  src="/climateOSblack_ver.webp"
+                  alt="ClimateOS 2026"
+                  fill
+                  className="object-contain block dark:hidden"
+                />
+                <Image
+                  src="/climateos-logo.webp"
+                  alt="ClimateOS 2026"
+                  fill
+                  className="object-contain hidden dark:block"
+                />
+              </div>
             </Link>
             <p className="text-site-muted text-sm mt-3 transition-colors duration-300">
               Global online climate-tech hackathon
