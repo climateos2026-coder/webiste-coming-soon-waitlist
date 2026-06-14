@@ -166,7 +166,7 @@ export default function RecruitmentClient() {
               >
                 <Link
                   href="/tracks"
-                  className="rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center gap-2 hover:shadow-primary/10"
+                  className="rounded-xl bg-gradient-to-r from-accent to-accent-hover hover:from-accent-hover hover:to-accent px-6 py-3.5 text-sm font-bold text-[#102033] shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center gap-2 hover:shadow-accent/10"
                 >
                   Explore track domains <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -268,7 +268,7 @@ export default function RecruitmentClient() {
 
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:scale-[1.01]"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-hover hover:from-accent-hover hover:to-accent px-4 py-3 text-sm font-bold text-[#102033] shadow-md transition-all hover:scale-[1.01]"
                   >
                     Agree and Open Application Link
                     <ArrowRight size={16} />

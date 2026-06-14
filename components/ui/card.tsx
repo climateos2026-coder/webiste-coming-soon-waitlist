@@ -12,7 +12,7 @@ export function Card({ children, className, hover = false }: CardProps) {
     <div
       className={clsx(
         'bg-site-card border border-site-border rounded-xl p-6',
-        hover && 'hover:border-primary hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-primary/5',
+        hover && 'hover:border-primary/40 hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-primary/5',
         className
       )}
     >

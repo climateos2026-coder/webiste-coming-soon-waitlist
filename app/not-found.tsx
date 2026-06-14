@@ -29,7 +29,7 @@ export default function NotFound() {
             <div className="flex justify-center">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-hover hover:from-accent-hover hover:to-accent px-6 py-3 text-sm font-bold text-[#102033] shadow-md transition-all hover:scale-[1.02]"
               >
                 <ArrowLeft size={16} />
                 Return to Mission Control

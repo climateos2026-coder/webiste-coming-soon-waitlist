@@ -76,8 +76,8 @@ export function Navbar() {
           <Link
             href="/#waitlist"
             className="hidden sm:inline-flex items-center h-10 px-5 rounded-xl 
-                       bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover 
-                       text-white text-sm font-bold shadow-[0_4px_14px_rgba(11,110,90,0.15)]
+                       bg-gradient-to-r from-secondary to-primary hover:from-secondary-hover hover:to-primary-hover 
+                       text-white text-sm font-bold shadow-[0_4px_14px_rgba(54,91,120,0.25)]
                        transition-all hover:-translate-y-0.5 active:translate-y-0"
           >
             Join Waitlist
@@ -110,7 +110,7 @@ export function Navbar() {
           <Link
             href="/#waitlist"
             className="mt-4 inline-flex items-center justify-center h-14 px-8 
-                       rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white font-bold text-lg shadow-md"
+                       rounded-xl bg-gradient-to-r from-secondary to-primary hover:from-secondary-hover hover:to-primary-hover text-white font-bold text-lg shadow-md"
             onClick={() => setOpen(false)}
           >
             Join Waitlist

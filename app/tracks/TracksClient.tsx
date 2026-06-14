@@ -36,7 +36,7 @@ export default function TracksClient() {
               />
               
               <div className="relative flex items-center justify-center">
-                <Lock className="h-10 w-10 text-primary drop-shadow-[0_0_10px_rgba(11,110,90,0.4)]" />
+                <Lock className="h-10 w-10 text-primary drop-shadow-[0_0_10px_rgba(109,106,187,0.4)]" />
                 <HelpCircle className="h-6 w-6 text-accent absolute -right-2 -bottom-2 bg-site-card rounded-full p-0.5 border border-site-border" />
               </div>
             </div>
@@ -89,7 +89,7 @@ export default function TracksClient() {
               </Link>
               <a
                 href="mailto:climateos26@gmail.com"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(11,110,90,0.25)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-hover hover:from-accent-hover hover:to-accent px-6 py-3.5 text-sm font-bold text-[#102033] shadow-[0_12px_30px_rgba(244,100,61,0.25)] transition-all hover:-translate-y-0.5 active:translate-y-0"
               >
                 <Mail size={16} />
                 Ask Questions

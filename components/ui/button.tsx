@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 
-type ButtonVariant = 'primary' | 'accent' | 'outline' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,9 +21,9 @@ export function Button({
   const baseClasses = 'inline-flex items-center justify-center rounded-md font-semibold tracking-wide transition-colors disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variantClasses = {
-    primary: 'bg-primary text-white hover:bg-primary-hover',
-    accent: 'bg-accent text-white hover:bg-accent-hover',
-    outline: 'bg-transparent text-primary border border-primary hover:bg-primary-soft/10 dark:text-primary-soft dark:border-primary-soft',
+    primary: 'bg-accent text-[#102033] font-bold hover:bg-accent-hover',
+    secondary: 'bg-secondary text-white hover:bg-secondary-hover',
+    outline: 'bg-transparent text-primary border border-primary hover:bg-primary-soft/10',
     ghost: 'bg-transparent text-site-text hover:bg-site-card-elevated',
   };
 

@@ -58,7 +58,7 @@ export function ClimateComingSoon() {
               className="font-display text-5xl font-extrabold leading-tight md:text-7xl tracking-tight"
             >
               Build for the
-              <span className="block bg-gradient-to-r from-primary via-primary-hover to-accent bg-clip-text text-transparent transition-all duration-300">
+              <span className="block bg-gradient-to-r from-secondary via-primary to-accent bg-clip-text text-transparent transition-all duration-300">
                 climate frontier
               </span>
             </motion.h1>
@@ -85,7 +85,7 @@ export function ClimateComingSoon() {
             >
               <Link
                 href="/tracks"
-                className="rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(11,110,90,0.25)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+                className="rounded-xl bg-gradient-to-r from-accent to-accent-hover hover:from-accent-hover hover:to-accent px-6 py-3 text-sm font-bold text-[#102033] shadow-[0_14px_40px_rgba(244,100,61,0.25)] transition-all hover:-translate-y-0.5 active:translate-y-0"
               >
                 Explore Tracks
               </Link>
@@ -101,9 +101,9 @@ export function ClimateComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="relative overflow-hidden rounded-2xl border border-site-border bg-site-card p-5 text-center backdrop-blur-md max-w-sm shadow-[0_8px_32px_0_rgba(11,110,90,0.05)] transition-all duration-300"
+              className="relative overflow-hidden rounded-2xl border border-site-border bg-site-card p-5 text-center backdrop-blur-md max-w-sm shadow-[0_8px_32px_0_rgba(54,91,120,0.08)] transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+              <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 via-transparent to-accent/5" />
               <div className="absolute -left-12 -top-12 h-24 w-24 rounded-full bg-primary/5 blur-xl pointer-events-none" />
               <div className="absolute -right-12 -bottom-12 h-24 w-24 rounded-full bg-accent/5 blur-xl pointer-events-none" />
               

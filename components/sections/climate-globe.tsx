@@ -125,10 +125,10 @@ export function ClimateGlobe() {
 
     // Set up Orbit beacons (Climate data packets)
     const beacons: Beacon[] = [
-      { angle: 0, speed: 0.015, color: '#0B6E5A', size: 5 }, // Deep Teal
-      { angle: Math.PI * 0.5, speed: 0.012, color: '#E07B39', size: 6 }, // Burnt Orange
-      { angle: Math.PI, speed: 0.018, color: '#2F8F5B', size: 4.5 }, // Success Green
-      { angle: Math.PI * 1.5, speed: 0.010, color: '#2F6FD6', size: 5.5 }, // Info Blue
+      { angle: 0, speed: 0.015, color: '#6D6ABB', size: 5 }, // Dusk Violet
+      { angle: Math.PI * 0.5, speed: 0.012, color: '#F4643D', size: 6 }, // Ember
+      { angle: Math.PI, speed: 0.018, color: '#365B78', size: 4.5 }, // Deep Teal
+      { angle: Math.PI * 1.5, speed: 0.010, color: '#6D6ABB', size: 5.5 }, // Dusk Violet
     ];
 
     const rotateX = (y: number, z: number, angle: number) => {
@@ -194,8 +194,8 @@ export function ClimateGlobe() {
           centerY,
           radius + 80
         );
-        glowGrad.addColorStop(0, 'rgba(11, 110, 90, 0.15)'); // Deep Teal
-        glowGrad.addColorStop(0.5, 'rgba(224, 123, 57, 0.08)'); // Burnt Orange
+        glowGrad.addColorStop(0, 'rgba(109, 106, 187, 0.15)'); // Dusk Violet
+        glowGrad.addColorStop(0.5, 'rgba(244, 100, 61, 0.08)'); // Ember
         glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = glowGrad;
         ctx.beginPath();
@@ -211,8 +211,8 @@ export function ClimateGlobe() {
           centerY,
           radius + 50
         );
-        glowGrad.addColorStop(0, 'rgba(11, 110, 90, 0.08)'); // Deep Teal
-        glowGrad.addColorStop(0.6, 'rgba(224, 123, 57, 0.04)'); // Burnt Orange
+        glowGrad.addColorStop(0, 'rgba(109, 106, 187, 0.08)'); // Dusk Violet
+        glowGrad.addColorStop(0.6, 'rgba(244, 100, 61, 0.04)'); // Ember
         glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = glowGrad;
         ctx.beginPath();
@@ -256,8 +256,8 @@ export function ClimateGlobe() {
       };
 
       // Draw two tilted orbit paths
-      drawOrbitRing(0.6, '#0B6E5A'); // Deep Teal
-      drawOrbitRing(-0.4, '#E07B39'); // Burnt Orange
+      drawOrbitRing(0.6, '#6D6ABB'); // Dusk Violet
+      drawOrbitRing(-0.4, '#365B78'); // Deep Teal
 
       // Draw particles
       renderedParticles.forEach((rp) => {
@@ -285,23 +285,23 @@ export function ClimateGlobe() {
         if (base.isLand) {
           if (isDark) {
             fillStyle = hoverGlow > 0
-              ? `rgba(224, 123, 57, ${0.8 + hoverGlow * 0.2})`  // Burnt Orange hover
-              : 'rgba(11, 110, 90, 0.75)'; // Brand Deep Teal
+              ? `rgba(109, 106, 187, ${0.8 + hoverGlow * 0.2})`  // Violet hover
+              : 'rgba(109, 106, 187, 0.75)'; // Dusk Violet
           } else {
             fillStyle = hoverGlow > 0
-              ? `rgba(224, 123, 57, ${0.85 + hoverGlow * 0.15})` // Burnt Orange hover
-              : 'rgba(11, 110, 90, 0.75)'; // Brand Deep Teal
+              ? `rgba(109, 106, 187, ${0.85 + hoverGlow * 0.15})` // Violet hover
+              : 'rgba(109, 106, 187, 0.75)'; // Dusk Violet
           }
         } else {
           // Water/Grid point (soft semi-transparent Teal)
           if (isDark) {
             fillStyle = hoverGlow > 0
-              ? `rgba(11, 110, 90, ${0.4 + hoverGlow * 0.3})`  // Deep Teal hover
-              : 'rgba(11, 110, 90, 0.15)'; // Soft Teal
+              ? `rgba(54, 91, 120, ${0.4 + hoverGlow * 0.3})`  // Deep Teal hover
+              : 'rgba(54, 91, 120, 0.15)'; // Soft Teal
           } else {
             fillStyle = hoverGlow > 0
-              ? `rgba(11, 110, 90, ${0.45 + hoverGlow * 0.3})`
-              : 'rgba(11, 110, 90, 0.15)';
+              ? `rgba(54, 91, 120, ${0.45 + hoverGlow * 0.3})`
+              : 'rgba(54, 91, 120, 0.15)';
           }
         }
 

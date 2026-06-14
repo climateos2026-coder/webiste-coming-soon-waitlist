@@ -72,7 +72,7 @@ export function DetailComingSoon({
           >
             <Link
               href={primaryHref}
-              className="rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 hover:shadow-primary/20"
+              className="rounded-xl bg-gradient-to-r from-accent to-accent-hover hover:from-accent-hover hover:to-accent px-6 py-3.5 text-sm font-bold text-[#102033] shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 hover:shadow-accent/20"
             >
               {primaryLabel}
             </Link>

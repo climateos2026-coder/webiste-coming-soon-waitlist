@@ -70,7 +70,7 @@ export function CountdownTimer() {
   );
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 border border-primary/20 rounded-2xl bg-site-card shadow-lg shadow-primary/5 animate-pulse-glow">
+    <div className="flex flex-col items-center gap-4 p-6 border border-primary/20 rounded-2xl bg-site-card shadow-lg shadow-primary/10 animate-pulse-glow">
       <p className="text-site-text text-sm font-semibold tracking-wider uppercase">
         {phase.label}
       </p>

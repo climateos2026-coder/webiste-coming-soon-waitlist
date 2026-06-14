@@ -1,5 +1,3 @@
-
-
 @import "tailwindcss";
 
 /* Cabinet Grotesk via Fontshare */
@@ -39,14 +37,20 @@
   --font-stat:    var(--font-barlow-condensed), var(--font-instrument-sans), sans-serif;
   --font-mono-custom: var(--font-jetbrains-mono), monospace;
 
-  /* Brand Colors */
-  --primary:         #0B6E5A;
-  --primary-hover:   #095C4B;
-  --primary-soft:    #D9F0EA;
+  /* Brand Colors — Dusk Violet (innovation) */
+  --primary:         #6D6ABB;
+  --primary-hover:   #564FA8;
+  --primary-soft:    #E8E7FB;
 
-  --accent:          #E07B39;
-  --accent-hover:    #C96A2F;
-  --accent-soft:     #FBE8DA;
+  /* Deep Teal (trust / structure) */
+  --secondary:       #365B78;
+  --secondary-hover: #2C4A62;
+  --secondary-soft:  #DCE8F1;
+
+  /* Ember (CTA / urgency) */
+  --accent:          #F4643D;
+  --accent-hover:    #D95532;
+  --accent-soft:     #FFE2DB;
 
   /* Semantic Colors */
   --color-error:     #C94B4B;
@@ -58,70 +62,69 @@
 /* ─── Dark mode (default) ───────────────────────────────────────────────────── */
 :root,
 [data-theme="dark"] {
-  --bg-primary:      #07110E;
-  --bg-secondary:    #0D1A16;
-  --bg-tertiary:     #13231E;
-  --bg-elevated:     #13231E;
-  --text-primary:    #F2F7F4;
-  --text-secondary:  #C4D2CC;
-  --text-muted:      #74867F;
-  --text-disabled:   #224036;
-  --border-default:  #224036;
-  --border-subtle:   rgba(34, 64, 54, 0.4);
-  --border-strong:   #385A4E;
-  
-  /* Glowing brand telemetry backdrops */
-  --glow-1:          rgba(11, 110, 90, 0.25);
-  --glow-2:          rgba(224, 123, 57, 0.20);
-  --glow-3:          rgba(47, 143, 91, 0.20);
-  --glow-4:          rgba(47, 111, 214, 0.15);
-  
+  --bg-primary:      #0F1720;
+  --bg-secondary:    #152231;
+  --bg-tertiary:     #1B2A3C;
+  --bg-elevated:     #1B2A3C;
+  --text-primary:    #F4F7FA;
+  --text-secondary:  #C0CBD7;
+  --text-muted:      #8095A8;
+  --text-disabled:   #2A3A4D;
+  --border-default:  #2A3A4D;
+  --border-subtle:   rgba(42, 58, 77, 0.4);
+  --border-strong:   #3D4A59;
+
+  --glow-1:          rgba(109, 106, 187, 0.25);
+  --glow-2:          rgba(244, 100, 61, 0.20);
+  --glow-3:          rgba(54, 91, 120, 0.20);
+  --glow-4:          rgba(109, 106, 187, 0.15);
+
   --star-opacity: 0.8;
   --scanline-opacity: 0.015;
 }
 
 /* ─── Light mode ────────────────────────────────────────────────────────────── */
 [data-theme="light"] {
-  --bg-primary:      #F7FAF8;
+  --bg-primary:      #F7F9FC;
   --bg-secondary:    #FFFFFF;
-  --bg-tertiary:     #EEF5F2;
+  --bg-tertiary:     #EEF3F8;
   --bg-elevated:     #FFFFFF;
-  --text-primary:    #10211C;
-  --text-secondary:  #4F635B;
-  --text-muted:      #74867F;
-  --text-disabled:   #B8C8C0;
-  --border-default:  #D6E3DD;
-  --border-subtle:   rgba(214, 227, 221, 0.4);
-  --border-strong:   #B8C8C0;
-  
-  /* Glowing brand telemetry backdrops */
-  --glow-1:          rgba(11, 110, 90, 0.10);
-  --glow-2:          rgba(224, 123, 57, 0.08);
-  --glow-3:          rgba(47, 143, 91, 0.08);
-  --glow-4:          rgba(47, 111, 214, 0.06);
-  
+  --text-primary:    #102033;
+  --text-secondary:  #516173;
+  --text-muted:      #708090;
+  --text-disabled:   #C0CBD7;
+  --border-default:  #D9E2EC;
+  --border-subtle:   rgba(217, 226, 236, 0.4);
+  --border-strong:   #A0B2C2;
+
+  --glow-1:          rgba(109, 106, 187, 0.10);
+  --glow-2:          rgba(244, 100, 61, 0.08);
+  --glow-3:          rgba(54, 91, 120, 0.08);
+  --glow-4:          rgba(109, 106, 187, 0.06);
+
   --star-opacity: 0;
   --scanline-opacity: 0;
 }
 
 /* ─── Tailwind v4 theme tokens ──────────────────────────────────────────────── */
 @theme {
-  /* Brand mappings */
   --color-primary:           var(--primary);
   --color-primary-hover:     var(--primary-hover);
   --color-primary-soft:      var(--primary-soft);
-  
+
+  --color-secondary:         var(--secondary);
+  --color-secondary-hover:   var(--secondary-hover);
+  --color-secondary-soft:    var(--secondary-soft);
+
   --color-accent:            var(--accent);
   --color-accent-hover:      var(--accent-hover);
   --color-accent-soft:       var(--accent-soft);
 
-  /* Semantic mappings */
   --color-success:           var(--color-success);
   --color-warning:           var(--color-warning);
   --color-error:             var(--color-error);
   --color-info:              var(--color-info);
 
-  /* Site theme tokens */
   --color-site-bg:           var(--bg-primary);
   --color-site-card:         var(--bg-secondary);
   --color-site-card-elevated:var(--bg-elevated);
@@ -131,7 +134,7 @@
   --color-site-border:       var(--border-default);
   --color-site-border-subtle:var(--border-subtle);
   --color-site-border-strong:var(--border-strong);
-  
+
   --color-glow-1:            var(--glow-1);
   --color-glow-2:            var(--glow-2);
   --color-glow-3:            var(--glow-3);
@@ -188,8 +191,8 @@ body::before {
     radial-gradient(1px 1px at 78% 84%, rgba(255,255,255,0.50) 0%, transparent 100%),
     radial-gradient(1px 1px at 91% 77%, rgba(255,255,255,0.30) 0%, transparent 100%),
     radial-gradient(2px 2px at 55% 50%, rgba(255,255,255,0.20) 0%, transparent 100%),
-    radial-gradient(2px 2px at 30% 75%, rgba(56,189,248,0.30) 0%, transparent 100%),
-    radial-gradient(2px 2px at 80% 20%, rgba(168,85,247,0.25) 0%, transparent 100%);
+    radial-gradient(2px 2px at 30% 75%, rgba(109,106,187,0.30) 0%, transparent 100%),
+    radial-gradient(2px 2px at 80% 20%, rgba(244,100,61,0.25) 0%, transparent 100%);
   background-size: 100% 100%;
   animation: star-drift 180s linear infinite;
   transition: opacity 0.35s ease;
@@ -274,8 +277,8 @@ body::after {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(11, 110, 90, 0.20); }
-  50%       { box-shadow: 0 0 40px rgba(224, 123, 57, 0.28); }
+  0%, 100% { box-shadow: 0 0 20px rgba(109, 106, 187, 0.20); }
+  50%       { box-shadow: 0 0 40px rgba(244, 100, 61, 0.28); }
 }
 
 @keyframes shimmer {

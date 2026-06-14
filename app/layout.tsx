@@ -113,11 +113,11 @@ export default async function RootLayout({
         </a>
         <PlausibleAnalytics />
         <noscript>
-          <div style={{ padding: '2rem', background: '#07110E', color: '#F2F7F4', textAlign: 'center', fontFamily: 'sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ padding: '2rem', background: '#0F1720', color: '#F4F7FA', textAlign: 'center', fontFamily: 'sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>ClimateOS 2026</h1>
             <p>JavaScript is required to view this site.</p>
             <p style={{ marginTop: '1rem' }}>
-              <a href="https://forms.gle/y5aZGLeeGJhb94L28" style={{ color: '#E07B39', textDecoration: 'underline' }}>
+              <a href="https://forms.gle/y5aZGLeeGJhb94L28" style={{ color: '#F4643D', textDecoration: 'underline' }}>
                 Join our waitlist on Google Forms
               </a>
             </p>
