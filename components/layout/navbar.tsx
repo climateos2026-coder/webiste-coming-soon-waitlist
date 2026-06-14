@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 
 const NAV_LINKS = [
@@ -48,8 +49,14 @@ export function Navbar() {
           : 'border-transparent bg-transparent'}`}
     >
       <div className="max-w-7xl mx-auto h-full px-4 flex items-center justify-between">
-        <Link href="/" className="font-display font-bold text-lg text-primary tracking-tight hover:opacity-85 transition-all">
-          ◈ ClimateOS 2026
+        <Link href="/" className="flex-shrink-0 hover:opacity-85 transition-opacity">
+          <Image
+            src="/climateos-logo.webp"
+            alt="ClimateOS 2026"
+            width={175}
+            height={28}
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

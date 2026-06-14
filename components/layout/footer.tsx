@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const FOOTER_LINKS = {
   primary: [
@@ -17,8 +18,13 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
-            <Link href="/" className="font-display font-bold text-xl text-primary tracking-tight hover:opacity-85 transition-opacity">
-              ◈ ClimateOS 2026
+            <Link href="/" className="inline-block hover:opacity-85 transition-opacity">
+              <Image
+                src="/climateos-logo.webp"
+                alt="ClimateOS 2026"
+                width={200}
+                height={32}
+              />
             </Link>
             <p className="text-site-muted text-sm mt-3 transition-colors duration-300">
               Global online climate-tech hackathon
