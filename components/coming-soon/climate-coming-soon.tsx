@@ -2,18 +2,21 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { AuraBackground } from '@/components/layout/aura-background';
 import { ClimateGlobe } from '@/components/sections/climate-globe';
 
 const typedWords = ['planetary resilience', 'climate intelligence', 'deployable impact', 'decentralized energy', 'urban heat relief'];
 
 export function ClimateComingSoon() {
-  const [typedText, setTypedText] = useState('');
+  const [typedText, setTypedText] = useState(typedWords[0]);
   const [wordIndex, setWordIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
+
     const word = typedWords[wordIndex];
     const timeout = setTimeout(() => {
       setTypedText((prev) => {
@@ -28,7 +31,7 @@ export function ClimateComingSoon() {
       });
     }, 55);
     return () => clearTimeout(timeout);
-  }, [typedText, wordIndex]);
+  }, [prefersReducedMotion, typedText, wordIndex]);
 
   useEffect(() => {
     const timeout = setTimeout(() => setShowPopup(true), 2200);
@@ -36,7 +39,7 @@ export function ClimateComingSoon() {
   }, []);
 
   return (
-    <main className="relative overflow-hidden bg-site-bg text-site-text transition-colors duration-300">
+    <section className="relative overflow-hidden bg-site-bg text-site-text transition-colors duration-300">
       {/* Dynamic theme-adapting radial background aura */}
       <AuraBackground variant="mixed" />
       <div className="pointer-events-none absolute inset-0 opacity-40 dark:opacity-75 [background:linear-gradient(120deg,transparent_30%,var(--border-default)_45%,transparent_60%)] bg-[length:250%_250%] animate-[aurora_16s_ease-in-out_infinite] transition-colors duration-300" />
@@ -78,7 +81,7 @@ export function ClimateComingSoon() {
               .
             </motion.p>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
@@ -107,7 +110,7 @@ export function ClimateComingSoon() {
               <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 via-transparent to-accent/5" />
               <div className="absolute -left-12 -top-12 h-24 w-24 rounded-full bg-primary/5 blur-xl pointer-events-none" />
               <div className="absolute -right-12 -bottom-12 h-24 w-24 rounded-full bg-accent/5 blur-xl pointer-events-none" />
-              
+
               <p className="relative font-display text-sm font-semibold tracking-wider text-primary uppercase transition-colors duration-300">
                 Countdown coming soon
               </p>
@@ -120,7 +123,7 @@ export function ClimateComingSoon() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="relative mx-auto h-[420px] w-[420px] max-w-full flex items-center justify-center z-0"
           >
-            <ClimateGlobe />
+            <ClimateGlobe reducedMotion={Boolean(prefersReducedMotion)} />
           </motion.div>
         </div>
       </section>
@@ -144,8 +147,8 @@ export function ClimateComingSoon() {
               ['Recruitment', 'Core team and volunteer opportunities are open.'],
               ['Sponsorship', 'Structured partner packages for meaningful activation.'],
             ].map(([title, description]) => (
-              <article 
-                key={title} 
+              <article
+                key={title}
                 className="rounded-xl border border-site-border bg-site-card-elevated p-5 hover:border-primary/20 hover:scale-[1.02] hover:shadow-md transition-all duration-300 cursor-pointer"
               >
                 <h3 className="font-display text-xl font-bold text-primary transition-colors duration-300">{title}</h3>
@@ -173,6 +176,6 @@ export function ClimateComingSoon() {
           </button>
         </motion.aside>
       )}
-    </main>
+    </section>
   );
 }

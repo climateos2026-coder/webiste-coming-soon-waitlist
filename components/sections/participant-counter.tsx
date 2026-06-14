@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
+type WaitlistCountState = 'loading' | 'ready' | 'error';
+
 export function ParticipantCounter() {
   const [count, setCount] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState<WaitlistCountState>('loading');
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -21,15 +23,16 @@ export function ParticipantCounter() {
 
         const data = await response.json();
         if (!abortController.signal.aborted) {
-          setCount(data.count);
+          setCount(typeof data.count === 'number' ? data.count : 0);
+          setState('ready');
         }
       } catch {
         if (!abortController.signal.aborted) {
-          setCount(null);
+          setState('error');
         }
       } finally {
         if (!abortController.signal.aborted) {
-          setLoading(false);
+          setState((currentState) => currentState === 'loading' ? 'error' : currentState);
         }
       }
     };
@@ -39,16 +42,16 @@ export function ParticipantCounter() {
     return () => abortController.abort();
   }, []);
 
-  if (loading) {
-    return <span className="font-stat font-bold">...</span>;
+  if (state === 'loading') {
+    return <span className="font-stat font-bold" aria-live="polite">Loading count</span>;
   }
 
-  if (count === null) {
-    return null;
+  if (state === 'error' || count === null) {
+    return <span className="font-stat font-bold" title="Participant count is temporarily unavailable">Unavailable</span>;
   }
 
   return (
-    <span className="font-stat font-bold tabular-nums">
+    <span className="font-stat font-bold tabular-nums" aria-live="polite">
       {count.toLocaleString()}
     </span>
   );

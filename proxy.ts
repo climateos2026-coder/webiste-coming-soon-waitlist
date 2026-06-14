@@ -1,39 +1,46 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-let supabaseHostname = '';
-if (supabaseUrl) {
+function getOriginFromUrl(value: string | undefined) {
+  if (!value) return '';
+
   try {
-    supabaseHostname = new URL(supabaseUrl).hostname;
+    return new URL(value).origin;
   } catch {
-    supabaseHostname = '';
+    return '';
   }
 }
 
-const isDev = process.env.NODE_ENV !== 'production';
-const supabaseConnect = supabaseHostname ? `https://${supabaseHostname}` : '';
-const externalOrigins = [
-  'https://plausible.io',
-  'https://*.supabase.co',
-  supabaseConnect,
-]
-  .filter(Boolean)
-  .join(' ');
+function unique(values: string[]) {
+  return Array.from(new Set(values.filter(Boolean)));
+}
 
-export function middleware(request: NextRequest) {
+const isDev = process.env.NODE_ENV !== 'production';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseHostname = supabaseUrl ? getOriginFromUrl(supabaseUrl) : '';
+const plausibleScriptUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL || 'https://plausible.io/js/script.js';
+const plausibleScriptOrigin = getOriginFromUrl(plausibleScriptUrl) || 'https://plausible.io';
+const plausibleConnectOrigin = getOriginFromUrl(process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ? `https://${process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}` : undefined);
+const analyticsOrigins = unique([plausibleScriptOrigin, plausibleConnectOrigin]).join(' ');
+const externalOrigins = unique([
+  'https://*.supabase.co',
+  supabaseHostname,
+  analyticsOrigins,
+]).join(' ');
+
+export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' ${isDev ? "'unsafe-eval'" : ''};
+    script-src 'self' 'nonce-${nonce}' ${analyticsOrigins} ${isDev ? "'unsafe-eval'" : ''};
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     img-src 'self' data: blob: https:;
     font-src 'self' data: https://fonts.gstatic.com;
     object-src 'none';
     base-uri 'self';
-    form-action 'self';
+    form-action 'self' https://forms.gle https://docs.google.com;
     connect-src 'self' ${externalOrigins};
-    frame-src 'self' https://docs.google.com https://forms.gle;
+    frame-src 'self' https://docs.google.com https://forms.gle https://*.google.com;
     frame-ancestors 'none';
     upgrade-insecure-requests;
   `;

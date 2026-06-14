@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Sans, Barlow_Condensed, JetBrains_Mono } from 'next/font/google';
 import "./globals.css";
 import { PlausibleAnalytics } from '@/components/analytics/plausible';
+import { getThemeInitScript } from '@/lib/theme';
 
 const instrumentSans = Instrument_Sans({
   subsets: ['latin'],
@@ -106,7 +107,7 @@ export default async function RootLayout({
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='light'||t==='dark'?t:'dark');}catch(e){}})();`
+            __html: getThemeInitScript()
           }}
         />
         <script
@@ -126,14 +127,8 @@ export default async function RootLayout({
         </a>
         <PlausibleAnalytics />
         <noscript>
-          <div style={{ padding: '2rem', background: '#0F1720', color: '#F4F7FA', textAlign: 'center', fontFamily: 'sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>ClimateOS 2026</h1>
-            <p>JavaScript is required to view this site.</p>
-            <p style={{ marginTop: '1rem' }}>
-              <a href="https://forms.gle/y5aZGLeeGJhb94L28" style={{ color: '#F4643D', textDecoration: 'underline' }}>
-                Join our waitlist on Google Forms
-              </a>
-            </p>
+          <div style={{ position: 'relative', zIndex: 100, padding: '0.75rem 1rem', background: '#102033', color: '#F4F7FA', textAlign: 'center', fontFamily: 'sans-serif', fontSize: '0.9rem' }}>
+            Some interactive features need JavaScript. You can still <a href="https://forms.gle/y5aZGLeeGJhb94L28" style={{ color: '#F4643D', textDecoration: 'underline', fontWeight: 600 }}>join the waitlist</a> or explore the site.
           </div>
         </noscript>
         {children}

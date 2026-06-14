@@ -1,23 +1,10 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { getSupabaseAnonKey, getSupabaseServiceRoleKey, getSupabaseUrl } from '@/lib/env';
 
-// Standard server client using the anonymous key (enforces RLS)
 export function createServerClient() {
-  return createSupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  return createSupabaseClient(getSupabaseUrl(), getSupabaseAnonKey());
 }
 
-// Administrative server client using the service role key (bypasses RLS)
-export function createAdminClient(adminSecret: string) {
-  if (!adminSecret || adminSecret !== process.env.ADMIN_SECRET) {
-    throw new Error('Unauthorized');
-  }
-  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('SUPABASE_SERVICE_ROLE_KEY is not defined in environment variables');
-  }
-  return createSupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
+export function createAdminClient() {
+  return createSupabaseClient(getSupabaseUrl(), getSupabaseServiceRoleKey());
 }

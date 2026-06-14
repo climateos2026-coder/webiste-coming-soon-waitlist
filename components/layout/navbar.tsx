@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useFocusTrap } from '@/lib/hooks/use-focus-trap';
+import { applyTheme, getInitialTheme, toggleStoredTheme, type AppTheme } from '@/lib/theme';
 
 const NAV_LINKS = [
   { href: '/tracks', label: 'Tracks' },
@@ -17,10 +18,7 @@ const NAV_LINKS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    if (typeof window === 'undefined') return 'dark';
-    return (localStorage.getItem('theme') as 'dark' | 'light' | null) || 'dark';
-  });
+  const [theme, setTheme] = useState<AppTheme>(getInitialTheme);
   const [mounted, setMounted] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -34,7 +32,7 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
+    applyTheme(theme);
     const animFrame = requestAnimationFrame(() => {
       setMounted(true);
     });
@@ -49,10 +47,8 @@ export function Navbar() {
   }, [open]);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    const newTheme = toggleStoredTheme();
     setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
   };
 
   const closeMenu = () => setOpen(false);
@@ -144,13 +140,13 @@ export function Navbar() {
         >
           <button
             type="button"
-            className="absolute right-4 top-4 p-2 rounded-xl text-site-muted hover:bg-site-card-elevated hover:text-site-text"
+            className="absolute right-4 top-4 z-20 p-2 rounded-xl text-site-muted hover:bg-site-card-elevated hover:text-site-text"
             onClick={closeMenu}
             aria-label="Close navigation"
           >
             <X size={20} />
           </button>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={closeMenu} aria-hidden="true" />
+          <div className="absolute inset-0 z-0 bg-black/40 backdrop-blur-sm" onClick={closeMenu} aria-hidden="true" />
           <div className="relative z-10 flex flex-col gap-6">
             {NAV_LINKS.map(link => (
               <Link

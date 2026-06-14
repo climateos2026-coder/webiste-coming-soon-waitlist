@@ -1,22 +1,29 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-static';
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+
+function jsonResponse(body: unknown, status = 200) {
+  const response = NextResponse.json(body, { status });
+  response.headers.set('Cache-Control', 'no-store');
+  return response;
+}
 
 export async function GET() {
   try {
-    const supabase = createAdminClient(process.env.ADMIN_SECRET!);
+    const supabase = createAdminClient();
     const { count, error } = await supabase
       .from('waitlist')
       .select('*', { count: 'exact', head: true });
 
     if (error) {
-      return NextResponse.json({ error: 'Unable to load participant count' }, { status: 500 });
+      return jsonResponse({ error: 'Unable to load participant count' }, 500);
     }
 
-    return NextResponse.json({ count: count ?? 0 });
-  } catch {
-    return NextResponse.json({ error: 'Unable to load participant count' }, { status: 500 });
+    return jsonResponse({ count: count ?? 0 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unable to load participant count';
+    console.error(message);
+    return jsonResponse({ error: 'Unable to load participant count' }, 503);
   }
 }

@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { AuraBackground } from '@/components/layout/aura-background';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, ClipboardList, ArrowRight, Sparkles, ShieldCheck, X } from 'lucide-react';
+import { Users, ClipboardList, ArrowRight, Sparkles, X } from 'lucide-react';
 import { useFocusTrap } from '@/lib/hooks/use-focus-trap';
 
 type Role = 'core' | 'volunteer';
@@ -19,9 +19,6 @@ const RECRUITMENT_LINKS: Record<Role, string> = {
 export default function RecruitmentClient() {
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [consentChecked, setConsentChecked] = useState(false);
-  const [mathAnswer, setMathAnswer] = useState('');
-  const [mathProblem, setMathProblem] = useState({ num1: 0, num2: 0 });
-  const [captchaToken, setCaptchaToken] = useState('');
   const [validationError, setValidationError] = useState('');
   const [fallbackUrl, setFallbackUrl] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -31,37 +28,9 @@ export default function RecruitmentClient() {
 
   useFocusTrap(selectedRole !== null, modalRef, triggerButtonRef);
 
-  useEffect(() => {
-    if (!selectedRole) return;
-
-    const abortController = new AbortController();
-
-    const fetchChallenge = async () => {
-      try {
-        const response = await fetch('/api/captcha', { signal: abortController.signal });
-        if (!response.ok) throw new Error('Unable to load verification challenge');
-        const data = await response.json();
-        if (!abortController.signal.aborted) {
-          setCaptchaToken(data.token);
-        }
-      } catch {
-        if (!abortController.signal.aborted) {
-          setValidationError('Unable to load verification challenge. Please try again.');
-        }
-      }
-    };
-
-    fetchChallenge();
-
-    return () => abortController.abort();
-  }, [selectedRole]);
-
   const resetVerification = () => {
     setSelectedRole(null);
     setConsentChecked(false);
-    setMathAnswer('');
-    setMathProblem({ num1: 0, num2: 0 });
-    setCaptchaToken('');
     setValidationError('');
     setFallbackUrl('');
     setSubmitting(false);
@@ -70,8 +39,6 @@ export default function RecruitmentClient() {
   const handleSelectRole = (role: Role, buttonRef: HTMLButtonElement | null) => {
     triggerButtonRef.current = buttonRef;
     setConsentChecked(false);
-    setMathAnswer('');
-    setCaptchaToken('');
     setValidationError('');
     setFallbackUrl('');
     setSelectedRole(role);
@@ -88,25 +55,9 @@ export default function RecruitmentClient() {
       return;
     }
 
-    const parsedAnswer = Number.parseInt(mathAnswer.trim(), 10);
-    if (Number.isNaN(parsedAnswer)) {
-      setValidationError('Please enter the verification answer.');
-      return;
-    }
-
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/captcha', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: captchaToken, answer: mathAnswer.trim() }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Verification failed');
-      }
-
       const targetUrl = selectedRole ? RECRUITMENT_LINKS[selectedRole] : '';
       if (!targetUrl) {
         throw new Error('Missing application link');
@@ -120,7 +71,7 @@ export default function RecruitmentClient() {
         setValidationError('Popup was blocked. Use the direct application link below.');
       }
     } catch {
-      setValidationError('Verification failed. Please refresh and try again.');
+      setValidationError('Unable to open the application link. Use the direct link below.');
     } finally {
       setSubmitting(false);
     }
@@ -281,14 +232,14 @@ export default function RecruitmentClient() {
                 </button>
 
                 <div className="flex items-center gap-2 mb-4">
-                  <ShieldCheck className="h-5 w-5 text-primary" />
+                  <Sparkles className="h-5 w-5 text-primary" />
                   <h3 id="modal-title" className="font-display font-bold text-lg text-site-text">
-                    Consent & Security Verification
+                    Consent before opening the application
                   </h3>
                 </div>
 
                 <p id="modal-description" className="text-sm text-site-muted mb-4 leading-relaxed">
-                  To protect our recruitment pipelines and comply with GDPR, India&apos;s DPDP Act, and CCPA regulations, please confirm your consent and verify you are human before opening the form.
+                  Please confirm that you consent to the processing of your application details before opening the external form.
                 </p>
 
                 <form onSubmit={handleVerifyAndRedirect} className="space-y-4">
@@ -313,26 +264,6 @@ export default function RecruitmentClient() {
                     </span>
                   </label>
 
-                  <div className="p-3 rounded-lg border border-site-border bg-site-card-elevated space-y-2">
-                    <label className="block text-xs font-semibold text-site-muted uppercase tracking-wider">
-                      Human Check: Solve to unlock link
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-sm font-bold text-site-text select-none">
-                        {mathProblem.num1} + {mathProblem.num2} =
-                      </span>
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={mathAnswer}
-                        onChange={(e) => setMathAnswer(e.target.value)}
-                        placeholder="?"
-                        required
-                        className="w-16 rounded-lg border border-site-border bg-site-bg px-3 py-1.5 text-center text-sm text-site-text focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                      />
-                    </div>
-                  </div>
-
                   {validationError && (
                     <p role="alert" className="text-xs text-red-500 font-semibold bg-red-500/10 border border-red-500/20 rounded-lg p-2">
                       {validationError}
@@ -355,7 +286,7 @@ export default function RecruitmentClient() {
                     disabled={submitting}
                     className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-hover hover:from-accent-hover hover:to-accent px-4 py-3 text-sm font-bold text-[#102033] shadow-md transition-all hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
-                    {submitting ? 'Verifying...' : 'Agree and Open Application Link'}
+                    {submitting ? 'Opening...' : 'Agree and Open Application Link'}
                     <ArrowRight size={16} />
                   </button>
                 </form>

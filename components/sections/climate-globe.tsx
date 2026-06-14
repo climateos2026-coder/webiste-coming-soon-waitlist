@@ -18,7 +18,7 @@ interface Beacon {
   size: number;
 }
 
-export function ClimateGlobe() {
+export function ClimateGlobe({ reducedMotion = false }: { reducedMotion?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
@@ -89,7 +89,7 @@ export function ClimateGlobe() {
     // Generate Globe Particles (Spherical distribution)
     const particles: Particle[] = [];
     const radius = 150;
-    const particleCount = 1200;
+    const particleCount = reducedMotion ? 300 : 700;
 
     // Procedural Landmass Generator using multiple sine octaves
     const checkIsLand = (theta: number, phi: number) => {
@@ -149,6 +149,7 @@ export function ClimateGlobe() {
 
     // Main render loop
     const render = () => {
+      const shouldAnimate = !reducedMotion;
       const isDark = theme === 'dark';
       const cssWidth = width;
       const cssHeight = height;
@@ -158,7 +159,7 @@ export function ClimateGlobe() {
       ctx.clearRect(0, 0, cssWidth, cssHeight);
 
       // Auto rotation unless dragging
-      if (!isDragging.current) {
+      if (shouldAnimate && !isDragging.current) {
         rotationY.current += dragVelocityY.current;
         rotationX.current += dragVelocityX.current;
 
@@ -270,18 +271,19 @@ export function ClimateGlobe() {
         const screenY = centerY + py;
 
         // Vector distance to mouse position for hover reactiveness
-        const dx = screenX - mousePos.current.x;
-        const dy = screenY - mousePos.current.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        // Hover size boost
         let hoverGlow = 0;
         let sizeMultiplier = 1.0;
 
-        if (dist < 45) {
-          const intensity = (45 - dist) / 45; // 0 to 1
-          sizeMultiplier = 1.0 + intensity * 1.5;
-          hoverGlow = intensity;
+        if (shouldAnimate && mousePos.current.x > -500) {
+          const dx = screenX - mousePos.current.x;
+          const dy = screenY - mousePos.current.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 45) {
+            const intensity = (45 - dist) / 45; // 0 to 1
+            sizeMultiplier = 1.0 + intensity * 1.5;
+            hoverGlow = intensity;
+          }
         }
 
         // Color settings based on Land vs Ocean and Dark vs Light mode
@@ -325,79 +327,102 @@ export function ClimateGlobe() {
       });
 
       // Update and draw floating Beacons (satellite telemetry packets)
-      beacons.forEach((beacon, idx) => {
-        beacon.angle += beacon.speed;
-        
-        const orbitRadius = radius + 32;
-        const tiltAngle = idx % 2 === 0 ? 0.6 : -0.4;
+      if (shouldAnimate) {
+        beacons.forEach((beacon, idx) => {
+          beacon.angle += beacon.speed;
 
-        // Calculate beacon's 3D coordinates
-        const ox = orbitRadius * Math.cos(beacon.angle);
-        const oy = 0;
-        const oz = orbitRadius * Math.sin(beacon.angle);
+          const orbitRadius = radius + 32;
+          const tiltAngle = idx % 2 === 0 ? 0.6 : -0.4;
 
-        // Apply tilt
-        const [ry, rz_tilt] = rotateX(oy, oz, tiltAngle);
+          // Calculate beacon's 3D coordinates
+          const ox = orbitRadius * Math.cos(beacon.angle);
+          const oy = 0;
+          const oz = orbitRadius * Math.sin(beacon.angle);
 
-        // Apply global rotations
-        const [rx, rz] = rotateY(ox, rz_tilt, rotationY.current);
-        const [ry_final, rz_final] = rotateX(ry, rz, rotationX.current);
+          // Apply tilt
+          const [ry, rz_tilt] = rotateX(oy, oz, tiltAngle);
 
-        const screenX = centerX + rx;
-        const screenY = centerY + ry_final;
+          // Apply global rotations
+          const [rx, rz] = rotateY(ox, rz_tilt, rotationY.current);
+          const [ry_final, rz_final] = rotateX(ry, rz, rotationX.current);
 
-        // Render only if beacon is in the front hemisphere
-        if (rz_final > -40) {
-          const depthPercent = (rz_final + radius) / (2 * radius);
-          const beaconSize = beacon.size * (0.8 + depthPercent * 0.4);
+          const screenX = centerX + rx;
+          const screenY = centerY + ry_final;
 
-          // Glowing background shadow for beacon
-          const glowGrad = ctx.createRadialGradient(
-            screenX,
-            screenY,
-            1,
-            screenX,
-            screenY,
-            beaconSize * 2.8
-          );
-          glowGrad.addColorStop(0, beacon.color);
-          glowGrad.addColorStop(1, 'rgba(0,0,0,0)');
+          // Render only if beacon is in the front hemisphere
+          if (rz_final > -40) {
+            const depthPercent = (rz_final + radius) / (2 * radius);
+            const beaconSize = beacon.size * (0.8 + depthPercent * 0.4);
 
-          ctx.fillStyle = glowGrad;
-          ctx.beginPath();
-          ctx.arc(screenX, screenY, beaconSize * 2.8, 0, 2 * Math.PI);
-          ctx.fill();
+            // Glowing background shadow for beacon
+            const glowGrad = ctx.createRadialGradient(
+              screenX,
+              screenY,
+              1,
+              screenX,
+              screenY,
+              beaconSize * 2.8
+            );
+            glowGrad.addColorStop(0, beacon.color);
+            glowGrad.addColorStop(1, 'rgba(0,0,0,0)');
 
-          // Beacon center core
-          ctx.fillStyle = isDark ? '#ffffff' : beacon.color;
-          ctx.beginPath();
-          ctx.arc(screenX, screenY, beaconSize * 0.4, 0, 2 * Math.PI);
-          ctx.fill();
-        }
-      });
+            ctx.fillStyle = glowGrad;
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, beaconSize * 2.8, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Beacon center core
+            ctx.fillStyle = isDark ? '#ffffff' : beacon.color;
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, beaconSize * 0.4, 0, 2 * Math.PI);
+            ctx.fill();
+          }
+        });
+      }
 
       // Frame continuation
-      animationFrameId = requestAnimationFrame(render);
+      if (shouldAnimate) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
-    render();
+    let isIntersecting = true;
+    const scheduleRender = () => {
+      cancelAnimationFrame(animationFrameId);
+      if (!reducedMotion && isIntersecting && !document.hidden) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
+    scheduleRender();
 
     const handleVisibility = () => {
       if (document.hidden) {
         cancelAnimationFrame(animationFrameId);
       } else {
-        animationFrameId = requestAnimationFrame(render);
+        scheduleRender();
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
+
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      isIntersecting = entry?.isIntersecting ?? true;
+      if (isIntersecting) {
+        scheduleRender();
+      } else {
+        cancelAnimationFrame(animationFrameId);
+      }
+    }, { threshold: 0.05 });
+    intersectionObserver.observe(canvas);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       cancelAnimationFrame(resizeFrame);
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', handleVisibility);
+      intersectionObserver.disconnect();
     };
-  }, [theme]);
+  }, [theme, reducedMotion]);
 
   // Drag interaction handlers
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {

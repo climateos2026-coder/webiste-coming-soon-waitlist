@@ -9,11 +9,20 @@ const REGISTRATION_FORM_URL = process.env.NEXT_PUBLIC_REGISTRATION_FORM_URL || '
 const DIRECT_FORM_URL = process.env.NEXT_PUBLIC_REGISTRATION_FORM_URL || 'https://forms.gle/4derjc3mE76gHZaq5';
 
 export function WaitlistSection() {
-  const [iframeLoading, setIframeLoading] = useState(true);
+  const [iframeLoading, setIframeLoading] = useState(false);
   const [showDirectLink, setShowDirectLink] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    const frame = requestAnimationFrame(() => {
+      setMounted(true);
+      setIframeLoading(true);
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
     const dismissed = localStorage.getItem(FOUNDER_TIP_KEY);
     if (!dismissed) {
       const tipTimer = setTimeout(() => setShowDirectLink(true), 3000);
@@ -68,7 +77,7 @@ export function WaitlistSection() {
         >
           <div className="relative min-h-[720px] w-full bg-site-card-elevated/40 flex flex-col">
             <AnimatePresence mode="wait">
-              {iframeLoading && (
+              {mounted && iframeLoading && (
                 <motion.div
                   key="loading"
                   initial={{ opacity: 1 }}
