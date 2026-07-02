@@ -1,7 +1,7 @@
 export type AppTheme = 'dark' | 'light';
 
 export const THEME_STORAGE_KEY = 'theme';
-export const DEFAULT_THEME: AppTheme = 'dark';
+export const DEFAULT_THEME: AppTheme = 'light';
 
 export function isValidTheme(value: string | null): value is AppTheme {
   return value === 'dark' || value === 'light';

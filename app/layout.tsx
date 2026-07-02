@@ -102,7 +102,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en" className={`h-full ${instrumentSans.variable} ${barlowCondensed.variable} ${jetbrainsMono.variable}`} data-theme="dark">
+    <html lang="en" className={`h-full ${instrumentSans.variable} ${barlowCondensed.variable} ${jetbrainsMono.variable}`} data-theme="light">
       <head>
         <script
           nonce={nonce}
